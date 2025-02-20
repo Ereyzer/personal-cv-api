@@ -1,4 +1,5 @@
 import { Router } from 'express';
+// import { Router } from 'express';
 
 import { getAllInfoController } from '../controlers/info';
 // import path from 'path';
