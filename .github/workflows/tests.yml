@@ -1,0 +1,20 @@
+name: Run Tests Before Merge
+
+on:
+  pull_request:
+    branches:
+      - main
+      - dev # або інша гілка, яку ви хочете захистити
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: npm install # або yarn install
+
+      - name: Run tests
+        run: npm test # або yarn test
