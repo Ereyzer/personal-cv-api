@@ -1,3 +1,5 @@
+import path from 'path';
+
 // ENV names
 export const varsEnv = {
   MONGODB: 'MONGODB',
@@ -10,18 +12,18 @@ export const varsEnv = {
   MONGODB_URL: 'MONGODB_URL',
 };
 
-export const HttpCode = {
-  OK: 200,
-  CREATED: 201,
-  ACCEPTED: 202,
-  NO_CONTENT: 204,
-  BAD_REQUEST: 400,
-  UNAUTHORIZED: 401,
-  FORBIDDEN: 403,
-  NOT_FOUND: 404,
-  CONFLICT: 409,
-  TOO_MANY_REQUESTS: 429,
-  INTERNAL_SERVER_ERROR: 500,
-};
+export enum HttpCode {
+  OK = 200,
+  CREATED = 201,
+  ACCEPTED = 202,
+  NO_CONTENT = 204,
+  BAD_REQUEST = 400,
+  UNAUTHORIZED = 401,
+  FORBIDDEN = 403,
+  NOT_FOUND = 404,
+  CONFLICT = 409,
+  TOO_MANY_REQUESTS = 429,
+  INTERNAL_SERVER_ERROR = 500,
+}
 
-export const __dirname = '/app/src';
+export const __dirname: string = path.dirname(process.argv[1]);

@@ -2,6 +2,7 @@ import { Router } from 'express';
 // import { Router } from 'express';
 
 import { getAllInfoController } from '../controlers/info';
+import { ctrlWrapper } from '../utils/ctrlWrapper';
 // import path from 'path';
 // import { HttpCode, __dirname } from '../config/constants';
 
@@ -18,7 +19,7 @@ const router = Router();
 // });
 
 // TODO: Get all exisist info
-router.get('/admin/info', getAllInfoController);
+router.get('/admin/info', ctrlWrapper(getAllInfoController));
 
 // TODO:  UPDATE all exist info
 

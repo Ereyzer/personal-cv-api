@@ -1,134 +1,136 @@
 {
-"openapi": "3.0.0",
-"info":{
+  "openapi": "3.0.0",
+  "info": {
     "title": "CV api docs",
     "description": "endpoints for CV api documentation"
-    },
-"servers": [
+  },
+  "servers": [
     {
-        "url": "http://localhost:3000/"
+      "url": "http://localhost:3000/"
     }
-],
-"tags": [{
-    "name": "admin",
-    "description": "everythink in admin panel"
-    }],
-"paths": {
-    "/admin/info":{
-        "get": {
-            "summary": "Returns basic existing info",
-            "description": "Returns basic existing info",
-            "tags": ["admin"],
-            "responses": {
-                "200": {
-                    "description": "successfull operation",
-                    "content": {
-                        "aplication/json":{
-                            "schema": {
-                                "$ref": "#/components/schemas/InfoResponse"
-                            }
-                        }
-                    }
+  ],
+  "tags": [
+    {
+      "name": "admin",
+      "description": "everythink in admin panel"
+    }
+  ],
+  "paths": {
+    "/admin/info": {
+      "get": {
+        "summary": "Returns basic existing info",
+        "description": "Returns basic existing info",
+        "tags": ["admin"],
+        "responses": {
+          "200": {
+            "description": "successfull operation",
+            "content": {
+              "aplication/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InfoResponse"
                 }
+              }
             }
+          }
         }
+      }
     }
-},
-"components":{
+  },
+  "components": {
     "variables": {
-        "def_en_text": "some text" ,
-        "def_uk_text": "деякий текст"
+      "def_en_text": "some text",
+      "def_uk_text": "деякий текст"
     },
-    "schemas":{
-        "InfoResponse":{
+    "schemas": {
+      "InfoResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "example": 200
+          },
+          "data": {
             "type": "object",
             "properties": {
-                "code": {
-                    "type": "integer",
-                    "format": "int32",
-                    "example": 200
-                },
-                "data": {
-                    "type": "object",
-                    "properties": {
-                        "_id": {
-                            "type": "integer",
-                            "format": "int32",
-                            "example": 1
-                        },
-                        "intro": {
-                            "type": "object",
-                            "properties": {
-                                "en" : {
-                                    "type" : "string",
-                                    "example": {
-                                        "$ref": "#/components/variables/def_en_text"
-                                    }
-                                },
-                                "uk": {
-                                    "type" : "string",
-                                    "example": {
-                                        "$ref": "#/components/variables/def_uk_text"
-                                    }
-                                }
-                            }
-                        },
-                        "about": {
-                            "type": "object",
-                            "properties": {
-                                "en" : {
-                                    "type" : "string",
-                                    "example": {
-                                        "$ref": "#/components/variables/def_en_text"
-                                    }
-                                },
-                                "uk": {
-                                    "type" : "string",
-                                    "example": {
-                                        "$ref": "#/components/variables/def_uk_text"
-                                    }
-                                }
-                            }
-                        },
-                        "avatar": {
-                            "type": "string",
-                            "format": "binary",
-                            "example": null
-                        },
-                        "contact_email": {
-                            "type": "string",
-                            "format":"binary",
-                            "example": null
-                        },
-                        "resume_file": {
-                            "type": "string",
-                            "format":"binary",
-                            "example": null
-                        },
-                        "likedin": {
-                            "type": "string",
-                            "example": null
-                        },
-                        "github": {
-                            "type": "string",
-                            "example": null
-                        },
-                        "instagram": {
-                            "type": "string",
-                            "example": null
-                        },
-                        "facebook": {
-                            "type": "string",
-                            "example": null
-                        },
-                        "telegram": {
-                            "type": "string",
-                            "example": null
-                        }
+              "_id": {
+                "type": "integer",
+                "format": "int32",
+                "example": 1
+              },
+              "intro": {
+                "type": "object",
+                "properties": {
+                  "en": {
+                    "type": "string",
+                    "example": {
+                      "$ref": "#/components/variables/def_en_text"
                     }
+                  },
+                  "uk": {
+                    "type": "string",
+                    "example": {
+                      "$ref": "#/components/variables/def_uk_text"
+                    }
+                  }
                 }
+              },
+              "about": {
+                "type": "object",
+                "properties": {
+                  "en": {
+                    "type": "string",
+                    "example": {
+                      "$ref": "#/components/variables/def_en_text"
+                    }
+                  },
+                  "uk": {
+                    "type": "string",
+                    "example": {
+                      "$ref": "#/components/variables/def_uk_text"
+                    }
+                  }
+                }
+              },
+              "avatar": {
+                "type": "string",
+                "format": "binary",
+                "example": null
+              },
+              "contact_email": {
+                "type": "string",
+                "format": "binary",
+                "example": null
+              },
+              "resume_file": {
+                "type": "string",
+                "format": "binary",
+                "example": null
+              },
+              "likedin": {
+                "type": "string",
+                "example": null
+              },
+              "github": {
+                "type": "string",
+                "example": null
+              },
+              "instagram": {
+                "type": "string",
+                "example": null
+              },
+              "facebook": {
+                "type": "string",
+                "example": null
+              },
+              "telegram": {
+                "type": "string",
+                "example": null
+              }
             }
+          }
         }
+      }
     }
-}
+  }
 }

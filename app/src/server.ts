@@ -1,12 +1,14 @@
 import fs from 'fs';
 import path from 'path';
 
-import express, { Request, Response } from 'express';
-import { getEnvVar } from './untils/getEnvVar';
+import express from 'express';
+import { getEnvVar } from './utils/getEnvVar';
 import swaggerUi from 'swagger-ui-express';
 
 import AdminRouter from './routers/admin';
-import { HttpCode, __dirname } from './config/constants';
+import { __dirname } from './config/constants';
+import { errorHandler } from './middlewares/errorHandler';
+import { NotFoundError } from './config/err-const';
 
 const swaggerDocument = JSON.parse(
   fs.readFileSync(path.join(__dirname, 'swagger/swagger.json'), 'utf8')
@@ -21,7 +23,7 @@ export const startServer = () => {
   //   // TODO: CORS !!!!!
   //   // TODO: some logs???
 
-  app.get('/', async (req, res) => {
+  app.get('/', async (_req, res) => {
     res.json({
       message: 'Hello world',
     });
@@ -29,21 +31,15 @@ export const startServer = () => {
 
   app.use(AdminRouter);
   app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-  app.use('*', (req, res) => {
-    res.status(HttpCode.NOT_FOUND).json({
-      message: 'not Found!',
-    });
+  app.use('*', req => {
+    const url: string = `${req.protocol}//${req.get('host')}${req.originalUrl}`;
+
+    throw new NotFoundError(`Wrong url: ${url}`);
   });
 
-  app.use((err: Error, req: Request, res: Response) => {
-    res.status(HttpCode.INTERNAL_SERVER_ERROR).json({
-      message: 'Somsing went WRONG!!!',
-      error: err.message,
-    });
-  });
+  app.use(errorHandler);
 
   app.listen(PORT, () => {
     console.log(`Server is running on port: http://${HOST}:${PORT}`);
   });
-  // console.log();
 };
