@@ -22,3 +22,13 @@ export class InternalServerError extends Error implements IError {
   name = 'INTERNAL SERVER ERROR';
   status = HttpCode.INTERNAL_SERVER_ERROR;
 }
+
+export class UnprocessableEntityError extends Error implements IError {
+  constructor(message?: string) {
+    super();
+    this.message = message || 'Validation Error';
+  }
+
+  name: string = 'UNPROCESSABLE ENTITY';
+  status: HttpCode = HttpCode.UNPROCESSABLE_ENTITY;
+}

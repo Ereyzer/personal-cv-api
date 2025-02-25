@@ -25,9 +25,79 @@
           "200": {
             "description": "successfull operation",
             "content": {
-              "aplication/json": {
+              "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/InfoResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/internal_server_error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/info/{field}": {
+      "patch": {
+        "summary":"update simple filds in info Doc",
+        "tags":["admin"],
+        "parameters": [
+          {
+            "name": "field",
+            "in": "path",
+            "description": "field name for entity",
+            "required": true,
+            "enum": [
+              "contact_email",
+              "likedin",
+              "github",
+              "instagram",
+              "facebook",
+              "skype"
+            ],
+            "example":"contact_email"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type":"string",
+                    "example": "newEmail@gmail.com",
+                    "required": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "201": {
+            "description": "CREATED",
+            "content": {
+              "application/json": {
+                "schema":{
+                  "$ref":"#/components/schemas/patchInfoField"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "UNPROCCESSABLE ENTITY",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "$ref": "#/components/schemas/unprocessable_entity"
                 }
               }
             }
@@ -123,13 +193,50 @@
                 "type": "string",
                 "example": null
               },
-              "telegram": {
+              "skype": {
                 "type": "string",
                 "example": null
               }
             }
           }
         }
+      },
+      "patchInfoField": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type":"integer",
+          "format": "int32",
+          "example": 201
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "contact_email": {
+                "type": "string",
+                "example": "newEmail@gmailcom"
+              }
+            }
+          },
+          "field": {
+            "type": "string",
+            "example": "contact_email"
+          }
+        }
+      },
+      "internal_server_error": {
+        "example": {
+          "message": "some message",
+          "name": "INTERNAL SERVER ERROR",
+          "status": 500
+        }
+      },
+      "unprocessable_entity": {
+        "example": {
+          "status": 422,
+          "name": "UNPROCESSABLE ENTITY",
+          "message": "\"contact_email\" must be a valid email"
+      }
       }
     }
   }

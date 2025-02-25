@@ -1,8 +1,11 @@
 import { Router } from 'express';
 // import { Router } from 'express';
 
-import { getAllInfoController } from '../controlers/info';
+import { getAllInfoController, patchInfoController } from '../controlers/info';
 import { ctrlWrapper } from '../utils/ctrlWrapper';
+import { validateParams } from '../middlewares/validateParams';
+import { updateSimpleBodyValidSchema, updateSimpleFildeValidSchema } from '../validation/info';
+import { validateBody } from '../middlewares/validateBody';
 // import path from 'path';
 // import { HttpCode, __dirname } from '../config/constants';
 
@@ -20,7 +23,12 @@ const router = Router();
 
 // TODO: Get all exisist info
 router.get('/admin/info', ctrlWrapper(getAllInfoController));
-
-// TODO:  UPDATE all exist info
+router.patch(
+  '/admin/info/:field',
+  validateParams(updateSimpleFildeValidSchema),
+  validateBody(updateSimpleBodyValidSchema),
+  ctrlWrapper(patchInfoController)
+);
+// TODO:  UPDATE bilingual fields info
 
 export default router;
