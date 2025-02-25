@@ -1,7 +1,7 @@
 import { mongoose } from "mongoose";
 
-import { getEnv } from "../config/getEnv.js";
-import { AboutCollection } from "../../app/src/db/models/about.ts";
+// import { getEnv } from "../config/getEnv.js";
+// import { AboutCollection } from "../../app/src/db/models/about.ts";
 // ${mongo}${user}:${pwd}@${url}/${db}?arg=value&arg=value
 
 export class ConnectorDB {
@@ -40,7 +40,6 @@ export class ConnectorDB {
     connectMongoDB = async () => {
         try {
             this.connection = await mongoose.connect(this.mongoUrl);
-            // await mongoose.connect('mongodb://localhost:27017');
 
             console.log('Mongo connection successfully established!');
         } catch (e) {

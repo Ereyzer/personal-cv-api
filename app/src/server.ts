@@ -24,19 +24,21 @@ export const startServer = () => {
   //   // TODO: some logs???
 
   app.get('/', async (_req, res) => {
-    res.json({
-      message: 'Hello world',
-    });
+    const message = 'Hello World';
+    res.status(200).contentType('aplication/json').send({ message });
   });
 
   app.use(AdminRouter);
+  // SWAGGER
   app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+  // WRONG url
   app.use('*', req => {
     const url: string = `${req.protocol}//${req.get('host')}${req.originalUrl}`;
 
     throw new NotFoundError(`Wrong url: ${url}`);
   });
 
+  // ERRORS
   app.use(errorHandler);
 
   app.listen(PORT, () => {

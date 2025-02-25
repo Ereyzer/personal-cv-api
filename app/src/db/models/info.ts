@@ -44,7 +44,7 @@ const InfoSchema = new Schema(
       type: Buffer,
       default: null,
     },
-    likedin: {
+    linkedin: {
       type: String,
       default: null,
     },
@@ -60,7 +60,7 @@ const InfoSchema = new Schema(
       type: String,
       default: null,
     },
-    telegram: {
+    skype: {
       type: String,
       default: null,
     },

@@ -14,7 +14,7 @@ export default [
       quotes: ["error", "single"],
       semi: ["error", "always"],
       // "no-unused-vars": "off",
-      "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "next" }],
+      "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern":"next"}],
       "no-undef": "warn",
     },
 
