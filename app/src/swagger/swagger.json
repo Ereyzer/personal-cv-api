@@ -54,14 +54,6 @@
             "in": "path",
             "description": "field name for entity",
             "required": true,
-            "enum": [
-              "contact_email",
-              "likedin",
-              "github",
-              "instagram",
-              "facebook",
-              "skype"
-            ],
             "example":"contact_email"
           }
         ],
@@ -104,12 +96,82 @@
           }
         }
       }
+    },
+    "/admin/info/{lenguage}/{field}": {
+      "patch":{
+        "description": "update multilanguges fields",
+        "tags":["admin"],
+        "parameters":[
+          {
+            "name": "language",
+            "in": "path",
+            "description": "length of entity",
+            "required": true,
+            "example":"en"
+          },
+          {
+            "name": "field",
+            "in": "path",
+            "description": "field name for entity",
+            "required": true,
+            "example":"about"
+          }
+        ],
+
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type":"string",
+                    "example": "some new text ebout you",
+                    "required": true
+                  }
+                }
+              }
+            }
+          }
+        },
+
+        "responses":{
+          "201": {
+            "description": "CREATED",
+            "content": {
+              "application/json": {
+                "schema":{
+                  "$ref":"#/components/schemas/patchMultilangInfoField"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "UNPROCCESSABLE ENTITY",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "$ref": "#/components/schemas/unprocessable_entity"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
     "variables": {
       "def_en_text": "some text",
-      "def_uk_text": "деякий текст"
+      "def_uk_text": "деякий текст",
+      "simple_field_enum":[
+        "contact_email",
+        "likedin",
+        "github",
+        "instagram",
+        "facebook",
+        "skype"
+      ]
     },
     "schemas": {
       "InfoResponse": {
@@ -215,6 +277,32 @@
               "contact_email": {
                 "type": "string",
                 "example": "newEmail@gmailcom"
+              }
+            }
+          },
+          "field": {
+            "type": "string",
+            "example": "contact_email"
+          }
+        }
+      },
+      "patchMultilangInfoField": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type":"integer",
+          "format": "int32",
+          "example": 201
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "about": {
+                "type": "object",
+                "example": {
+                  "en": "some text",
+                  "uk": "Деякий текст"
+                }
               }
             }
           },

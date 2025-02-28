@@ -7,22 +7,16 @@ import {
   isSkypeLink,
 } from './validators';
 
-const simleInfoFields: string[] = [
-  'avatar',
-  'contact_email',
-  'resume_file',
-  'linkedin',
-  'github',
-  'instagram',
-  'facebook',
-  'skype',
-];
-
-export const updateSimpleFildeValidSchema = Joi.object({
-  field: Joi.string()
-    .valid(...simleInfoFields)
-    .required(),
-});
+// const simleInfoFields: string[] = [
+//   'avatar',
+//   'contact_email',
+//   'resume_file',
+//   'linkedin',
+//   'github',
+//   'instagram',
+//   'facebook',
+//   'skype',
+// ];
 
 export const updateSimpleBodyValidSchema = Joi.object({
   value: Joi.string().required(),
@@ -45,4 +39,48 @@ export const simpleFieldsSchema = Joi.object({
   skype: Joi.string().custom(isSkypeLink, 'skype url').messages({ 'any.custom': '{{#message}}' }),
   //   avatar: Joi.string()
   //   resume_file?: string;
+});
+const simleInfoFields: string[] = simpleFieldsSchema['$_terms'].keys.reduce(
+  (prev: string[], { key }: { key?: string; schema?: object }): string[] => {
+    if (!key) {
+      return [...prev];
+    } else {
+      return [key, ...prev];
+    }
+  },
+  []
+);
+
+export const updateSimpleFildeValidSchema = Joi.object({
+  field: Joi.string()
+    .valid(...simleInfoFields)
+    .required(),
+});
+
+export const langFieldSchema = Joi.object({
+  intro: Joi.object({
+    en: Joi.string().min(5).max(100),
+    uk: Joi.string().min(5).max(100),
+  }),
+  about: Joi.object({
+    en: Joi.string().min(5).max(1000),
+    uk: Joi.string().min(5).max(1000),
+  }),
+});
+
+const langFialds: string[] = langFieldSchema['$_terms'].keys.reduce(
+  (prev: string[], { key }: { key?: string; schema?: object }): string[] => {
+    if (!key) {
+      return [...prev];
+    } else {
+      return [key, ...prev];
+    }
+  },
+  []
+);
+
+export const updateLangFildeValidSchema = Joi.object({
+  field: Joi.string()
+    .valid(...langFialds)
+    .required(),
 });

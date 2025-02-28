@@ -1,14 +1,15 @@
+import { QueryOptions } from 'mongoose';
 import { InfoCollection } from '../db/models/info';
-import { IPayloadSimpleInfo } from '../interfaces/interface_controlers';
+import { IInfo, IPayloadLangInfo, IPayloadSimpleInfo } from '../interfaces/interface_controlers';
 
 export const getInfo = async () => {
-  const info = await InfoCollection.findById(1);
+  const info: IInfo | null = await InfoCollection.findById(1);
   return info;
 };
 
 export const updateSimpleFildInfo = async (
   payload: IPayloadSimpleInfo,
-  options = {}
+  options: QueryOptions = {}
 ): Promise<IPayloadSimpleInfo | null> => {
   const data: IPayloadSimpleInfo | null = await InfoCollection.findByIdAndUpdate(1, payload, {
     new: true,
@@ -18,4 +19,29 @@ export const updateSimpleFildInfo = async (
   });
 
   return data;
+};
+
+export const updateLangFieldInfo = async (
+  payload: IPayloadLangInfo,
+  options: QueryOptions = {}
+): Promise<IPayloadLangInfo | null> => {
+  const info: IInfo | null = await getInfo();
+  if (!info) return null;
+  const fieldName = Object.keys(payload)[0] as unknown as keyof IInfo;
+
+  const oldObj = info[`${fieldName}`] as unknown as object;
+  const newObj = payload[
+    `${Object.keys(payload)[0] as unknown as keyof IPayloadLangInfo}`
+  ] as unknown as object;
+
+  return await InfoCollection.findByIdAndUpdate(
+    1,
+    { [`${fieldName}`]: { ...oldObj, ...newObj } },
+    {
+      new: true,
+      strict: true,
+      runValidators: true,
+      ...options,
+    }
+  );
 };

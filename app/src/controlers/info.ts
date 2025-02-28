@@ -1,8 +1,12 @@
-import { getInfo, updateSimpleFildInfo } from '../services/info.ts';
+import { getInfo, updateLangFieldInfo, updateSimpleFildInfo } from '../services/info.ts';
 import { HttpCode } from '../config/constants.ts';
-import { IController, IPayloadSimpleInfo } from '../interfaces/interface_controlers.ts';
+import {
+  IController,
+  IPayloadLangInfo,
+  IPayloadSimpleInfo,
+} from '../interfaces/interface_controlers.ts';
 import { InternalServerError, UnprocessableEntityError } from '../config/err-const.ts';
-import { simpleFieldsSchema } from '../validation/info.ts';
+import { langFieldSchema, simpleFieldsSchema } from '../validation/info.ts';
 import Joi from 'joi';
 
 export const getAllInfoController: IController = async (_req, res) => {
@@ -32,9 +36,76 @@ export const patchInfoController: IController = async (req, res, next) => {
 
   res.status(HttpCode.CREATED).json({
     status: HttpCode.CREATED,
-    data,
+    data: { [`${field}`]: data[`${field}`] },
     field,
   });
 
   return;
 };
+
+export const patchInfoEnController: IController = async (req, res, next) => {
+  // const EN = 'en';
+  const {
+    params: { field },
+    body: { value },
+  } = req;
+  const payload: IPayloadLangInfo = {
+    [`${field}`]: {
+      en: value,
+    },
+  };
+  const isWrongField: Joi.ValidationError | undefined = langFieldSchema.validate(payload, {
+    abortEarly: true,
+  }).error;
+
+  if (isWrongField) throw new UnprocessableEntityError(isWrongField.message);
+
+  const data: IPayloadLangInfo | null = await updateLangFieldInfo(payload, { fields: field });
+
+  if (!data) throw new InternalServerError('can`t update info');
+
+  res.status(HttpCode.CREATED).json({
+    status: HttpCode.CREATED,
+    // data: {[`${field}`]: {
+    //   en: data[`${field}`].en,
+    // }},
+    data,
+    field,
+  });
+  return;
+};
+
+export const patchInfoUkController: IController = async (req, res, next) => {
+  const {
+    params: { field },
+    body: { value },
+  } = req;
+  const payload: IPayloadLangInfo = {
+    [`${field}`]: {
+      uk: value,
+    },
+  };
+  const isWrongField: Joi.ValidationError | undefined = langFieldSchema.validate(payload, {
+    abortEarly: true,
+  }).error;
+
+  if (isWrongField) throw new UnprocessableEntityError(isWrongField.message);
+
+  const data: IPayloadLangInfo | null = await updateLangFieldInfo(payload, { fields: field });
+  // console.log(data);
+
+  if (!data) throw new InternalServerError('can`t update info');
+
+  res.status(HttpCode.CREATED).json({
+    status: HttpCode.CREATED,
+    data,
+    field,
+  });
+  return;
+};
+
+// TODO: validator
+// TODO: IF
+// TODO: db
+// TODO: IF
+// TODO: res
