@@ -170,7 +170,7 @@
         "github",
         "instagram",
         "facebook",
-        "skype"
+        "phone"
       ]
     },
     "schemas": {
@@ -255,7 +255,7 @@
                 "type": "string",
                 "example": null
               },
-              "skype": {
+              "phone": {
                 "type": "string",
                 "example": null
               }

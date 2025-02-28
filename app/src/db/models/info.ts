@@ -60,7 +60,7 @@ const InfoSchema = new Schema(
       type: String,
       default: null,
     },
-    skype: {
+    phone: {
       type: String,
       default: null,
     },

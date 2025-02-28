@@ -4,7 +4,7 @@ const linkedinPattern = /^https:\/\/www\.linkedin\.com\/in\/\S+\//;
 const githubPattern = /^https:\/\/www\.gihub\.com\/\S+/;
 const instagramPattern = /^https:\/\/www\.instagram\.com\/\S+\//;
 const facebokPattern = /^https:\/\/www\.facebook\.com\/profile\.php\?\S+\//;
-const skypePattern = /^https:\/\/join\.skype\.com\/ivite\/\S+/;
+const phonePattern = /^\+?(?:[0-9]){6,14}[0-9]$/;
 
 class LinksValidators {
   private pattern: RegExp;
@@ -34,7 +34,7 @@ export const isInstagramLink: Joi.CustomValidator = new LinksValidators(
   'instagram'
 ).init();
 
-export const isSkypeLink: Joi.CustomValidator = new LinksValidators(skypePattern, 'skype').init();
+export const isPhoneLink: Joi.CustomValidator = new LinksValidators(phonePattern, 'phone').init();
 
 export const isGithubLink: Joi.CustomValidator = new LinksValidators(
   githubPattern,

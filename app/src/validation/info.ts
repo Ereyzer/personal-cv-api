@@ -4,7 +4,7 @@ import {
   isGithubLink,
   isInstagramLink,
   isLinkedinLink,
-  isSkypeLink,
+  isPhoneLink,
 } from './validators';
 
 // const simleInfoFields: string[] = [
@@ -15,7 +15,7 @@ import {
 //   'github',
 //   'instagram',
 //   'facebook',
-//   'skype',
+//   'phone',
 // ];
 
 export const updateSimpleBodyValidSchema = Joi.object({
@@ -36,7 +36,7 @@ export const simpleFieldsSchema = Joi.object({
   facebook: Joi.string()
     .custom(isFacebookLink, 'facebok url')
     .messages({ 'any.custom': '{{#message}}' }),
-  skype: Joi.string().custom(isSkypeLink, 'skype url').messages({ 'any.custom': '{{#message}}' }),
+  phone: Joi.string().custom(isPhoneLink, 'phone url').messages({ 'any.custom': '{{#message}}' }),
   //   avatar: Joi.string()
   //   resume_file?: string;
 });

@@ -13,7 +13,7 @@ export interface IPayloadSimpleInfo {
   // github?: string;
   // instagram?: string;
   // facebook?: string;
-  // skype?: string;
+  // phone?: string;
 }
 
 export interface IPayloadLangInfo {
@@ -43,5 +43,5 @@ export interface IInfo {
   github?: string;
   instagram?: string;
   facebook?: string;
-  skype?: string;
+  phone?: string;
 }
