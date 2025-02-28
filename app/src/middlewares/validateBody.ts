@@ -5,8 +5,6 @@ import { InternalServerError, UnprocessableEntityError } from '../config/err-con
 export const validateBody =
   (schema: Joi.ObjectSchema): IController =>
   async (req, _res, next) => {
-    console.log(req.body);
-
     try {
       await schema.validateAsync(req.body, { abortEarly: false });
       next();

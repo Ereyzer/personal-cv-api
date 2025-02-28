@@ -65,7 +65,7 @@ const InfoSchema = new Schema(
       default: null,
     },
   },
-  { collection: 'info' }
+  { collection: 'info', timestamps: true }
 );
 
 export const InfoCollection = mongoose.model('Info', InfoSchema);

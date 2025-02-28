@@ -15,22 +15,33 @@ export interface IPayloadSimpleInfo {
   // facebook?: string;
   // skype?: string;
 }
-// interface IPayloadSimpleInfo {
-//   _id?: number;
-//   intro?: {
-//     en: string;
-//     uk: string;
-//   };
-//   about?: {
-//     en: string;
-//     uk: string;
-//   };
-//   avatar?: string;
-//   contact_email?: string;
-//   resume_file?: string;
-//   likedin?: string;
-//   github?: string;
-//   instagram?: string;
-//   facebook?: string;
-//   skype?: string;
-// }
+
+export interface IPayloadLangInfo {
+  intro?: {
+    en?: string;
+    uk?: string;
+  };
+  about?: {
+    en?: string;
+    uk?: string;
+  };
+}
+export interface IInfo {
+  _id?: number;
+  intro?: {
+    en: string;
+    uk: string;
+  };
+  about?: {
+    en: string;
+    uk: string;
+  };
+  avatar?: string;
+  contact_email?: string;
+  resume_file?: string;
+  likedin?: string;
+  github?: string;
+  instagram?: string;
+  facebook?: string;
+  skype?: string;
+}
