@@ -93,13 +93,19 @@ const database='${datab}';
 const mainCollection='info';
 
 use(database);
-db.createCollection(mainCollection);
 
 const svgs = 'svgs';
-db.createCollection(svgs);
 
-db[mainCollection].insertMany(data);
-db[svgs].insertMany(svg);
+if (!db[mainCollection].findOne()){
+    db.createCollection(mainCollection);
+    db[mainCollection].insertMany(data);
+}
+
+if (!db[svgs].findOne()){
+    db.createCollection(svgs);
+    db[svgs].insertMany(svg);
+}
+
 exit
 EOF
 
