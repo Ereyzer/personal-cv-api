@@ -15,6 +15,8 @@ import {
   updateSimpleFildeValidSchema,
 } from '../validation/info';
 import { validateBody } from '../middlewares/validateBody';
+import { upload } from '../middlewares/multer';
+import { uploadAvatar } from '../controlers/files';
 // import path from 'path';
 // import { HttpCode, __dirname } from '../config/constants';
 
@@ -31,6 +33,7 @@ const router = Router();
 // });
 
 // TODO: Get all exisist info
+router.post('/admin/files/avatar', upload.single('avatar'), uploadAvatar);
 router.get('/admin/info', ctrlWrapper(getAllInfoController));
 router.patch(
   '/admin/info/en/:field',

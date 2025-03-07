@@ -33,7 +33,7 @@ const InfoSchema = new Schema(
       },
     },
     avatar: {
-      type: Buffer,
+      type: String,
       default: null,
     },
     contact_email: {

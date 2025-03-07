@@ -6,7 +6,7 @@ import { getEnvVar } from './utils/getEnvVar';
 import swaggerUi from 'swagger-ui-express';
 
 import AdminRouter from './routers/admin';
-import { __dirname } from './config/constants';
+import { __dirname, UPLOAD_DIR } from './config/constants';
 import { errorHandler } from './middlewares/errorHandler';
 import { NotFoundError } from './config/err-const';
 
@@ -28,6 +28,7 @@ export const startServer = () => {
     res.status(200).contentType('aplication/json').send({ message });
   });
 
+  app.use('/uploads', express.static(UPLOAD_DIR));
   app.use(AdminRouter);
   // SWAGGER
   app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument));

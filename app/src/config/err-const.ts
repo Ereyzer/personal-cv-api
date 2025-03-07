@@ -32,3 +32,13 @@ export class UnprocessableEntityError extends Error implements IError {
   name: string = 'UNPROCESSABLE ENTITY';
   status: HttpCode = HttpCode.UNPROCESSABLE_ENTITY;
 }
+
+export class BadRequest extends Error implements IError {
+  constructor(message?: string) {
+    super();
+    this.message = message || 'Bad Request';
+  }
+
+  name: string = 'BAD REQUEST';
+  status: HttpCode = HttpCode.BAD_REQUEST;
+}
