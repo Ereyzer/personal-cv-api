@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/index.ts",
+  "type": "module",
   "scripts": {
     "test": "jest",
     "lint": "eslint --cache --fix --color",
@@ -20,7 +21,6 @@
     "mongosh:connect": "mongosh mongodb://localhost:27017/cvdata",
     "prepare": "husky install"
   },
-  "type": "module",
   "keywords": [],
   "author": "Ivan Laver <ereyzer142@gmail.com>",
   "license": "MIT",
