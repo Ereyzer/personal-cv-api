@@ -5,18 +5,18 @@ import { updateAvatar } from '../services/files';
 
 export const uploadAvatar: IController = async (req, res, next) => {
   const avatar = req.file;
-  console.log(avatar);
 
-  // TODO: service
-  // const url = avatar?.path;
   const name = avatar?.filename;
   if (!name) throw new BadRequest();
+
   const data = await updateAvatar(name);
   if (!data) throw new InternalServerError();
+
   res.status(HttpCode.CREATED).json({
     status: HttpCode.CREATED,
     data: {
       url: data.avatar,
     },
   });
+  return;
 };
