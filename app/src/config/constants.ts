@@ -29,5 +29,5 @@ export enum HttpCode {
 
 export const __dirname: string = path.dirname(process.argv[1]);
 
-export const TMP_UPLOAD_DIR: string = path.join(__dirname, 'tmp');
-export const UPLOAD_DIR: string = path.join(__dirname, 'upload');
+export const TMP_UPLOAD_DIR: string = path.join(__dirname, '../', 'tmp');
+export const UPLOAD_DIR: string = path.join(__dirname, '../', 'upload');

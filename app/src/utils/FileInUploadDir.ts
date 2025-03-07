@@ -14,7 +14,13 @@ export const saveFileToUploadDir = async (fileName: string): Promise<string | ne
   return `${getEnvVar('APP_DOMAIN')}/uploads/${fileName}`;
 };
 
-export const rmFileFromUploadDir = (url: string): void => {
+export const rmFileFromUploadDir = async (url: string): Promise<void> => {
   const fileName: string = path.basename(url);
-  fs.rm(path.join(UPLOAD_DIR, fileName));
+  const patToFile: string = path.join(UPLOAD_DIR, fileName);
+  try {
+    await fs.access(patToFile);
+    fs.rm(patToFile);
+  } catch (error) {
+    if (error instanceof Error && (error as { code?: string }).code === 'ENOENT') return;
+  }
 };
