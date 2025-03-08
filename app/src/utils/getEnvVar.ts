@@ -1,7 +1,3 @@
-// import dotenv from 'dotenv';
-
-// dotenv.config();
-
 export function getEnvVar(
   name: string,
   defaultValue: string | undefined = undefined

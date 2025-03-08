@@ -158,6 +158,62 @@
           }
         }
       }
+    },
+    "/admin/files/avatar": {
+      "post": {
+        "sumarry": "update image for avatar",
+        "tags": ["admin"],
+        "requestBody": {
+          "content":{
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "avatar": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": ["avatar"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "File uploaded successfully",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "type": "object",
+                  "properties":{
+                    "status": {
+                      "type": "integer",
+                      "format": "int32",
+                      "example": 201
+                    },
+                    "data":{
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "example": "http://localhost:3000/uploads/1741418972410_myPhoto.jpg"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+           "400": {
+            "description": "Bad Request, for example missing file"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -226,8 +282,7 @@
               },
               "avatar": {
                 "type": "string",
-                "format": "binary",
-                "example": null
+                "example": "http://localhost:3000/uploads/1741418972410_myPhoto.jpg"
               },
               "contact_email": {
                 "type": "string",
