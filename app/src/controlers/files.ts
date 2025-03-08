@@ -3,9 +3,8 @@ import { BadRequest, InternalServerError } from '../config/err-const';
 import { IController } from '../interfaces/interface_controlers';
 import { updateAvatar } from '../services/files';
 
-export const uploadAvatar: IController = async (req, res, next) => {
+export const uploadAvatar: IController = async (req, res) => {
   const avatar = req.file;
-  console.log(avatar);
 
   const name = avatar?.filename;
   if (!name) throw new BadRequest();
