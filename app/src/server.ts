@@ -9,6 +9,7 @@ import AdminRouter from './routers/admin';
 import { __dirname, UPLOAD_DIR } from './config/constants';
 import { errorHandler } from './middlewares/errorHandler';
 import { NotFoundError } from './config/err-const';
+import { ctrlWrapper } from './utils/ctrlWrapper';
 
 const swaggerDocument = JSON.parse(
   fs.readFileSync(path.join(__dirname, 'swagger/swagger.json'), 'utf8')
@@ -28,7 +29,7 @@ export const startServer = () => {
     res.status(200).contentType('aplication/json').send({ message });
   });
 
-  app.use('/uploads', express.static(UPLOAD_DIR));
+  app.use('/uploads', ctrlWrapper(express.static(UPLOAD_DIR)));
   app.use(AdminRouter);
   // SWAGGER
   app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
