@@ -25,7 +25,7 @@ services:
       - ${APP_PORT}:${APP_PORT}
     restart: unless-stopped
     # volumes:
-    #   - ./app/src:/app/src
+    #   - /app/upload:/app/upload
     # command: npm run dev
     develop:
       watch:
@@ -42,8 +42,10 @@ services:
     container_name: db-mongo
     restart: unless-stopped
     # volumes:
-    #   - ./data:/data/db
+    #   - data:/data/db
     ports:
       - "27017:27017"
     # logging:
     #   driver: none
+# volumes:
+#   data:

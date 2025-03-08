@@ -5,6 +5,7 @@ import { updateAvatar } from '../services/files';
 
 export const uploadAvatar: IController = async (req, res, next) => {
   const avatar = req.file;
+  console.log(avatar);
 
   const name = avatar?.filename;
   if (!name) throw new BadRequest();
