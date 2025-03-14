@@ -83,6 +83,7 @@ done
 
 json_svg="tmp-svg.json"
 ./scripts/helpers/import-svg.sh open $TMP $json_svg
+# exit 0  
 # cat "./${json_svg}"
 npx mongosh ${mongo}${host}:${port} <<EOF
 const data = require('./${START_PACK}/collections/cvdata.info.json');
@@ -94,16 +95,16 @@ const mainCollection='info';
 
 use(database);
 
-const svgs = 'svgs';
+const icons = 'icons';
 
 if (!db[mainCollection].findOne()){
     db.createCollection(mainCollection);
     db[mainCollection].insertMany(data);
 }
 
-if (!db[svgs].findOne()){
-    db.createCollection(svgs);
-    db[svgs].insertMany(svg);
+if (!db[icons].findOne()){
+    db.createCollection(icons);
+    db[icons].insertMany(svg);
 }
 
 exit

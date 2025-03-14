@@ -1,8 +1,24 @@
 import { NextFunction, Request, Response } from 'express';
 
+import mongoose, { Document } from 'mongoose';
+
 export interface IController {
   (req: Request, res: Response, next: NextFunction): Promise<void | never>;
 }
+
+// export type EInfoSimpleFields =
+//   | '_id'
+//   | 'avatar'
+//   | 'contact_email'
+//   | 'resume_file'
+//   | 'likedin'
+//   | 'github'
+//   | 'instagram'
+//   | 'facebook'
+//   | 'phone';
+
+// export type TInfo = Record<EInfoFields, string>;
+// export type IPayloadSimpleInfo = Partial<Record<EInfoSimpleFields, string>>;
 
 export interface IPayloadSimpleInfo {
   [key: string]: string;
@@ -26,6 +42,7 @@ export interface IPayloadLangInfo {
     uk?: string;
   };
 }
+
 export interface IInfo {
   _id?: number;
   intro?: {
@@ -44,4 +61,26 @@ export interface IInfo {
   instagram?: string;
   facebook?: string;
   phone?: string;
+}
+
+export interface ISvgDbData {
+  buffer: Buffer;
+  name: string;
+}
+export interface ISvgDbDataCollection extends Document {
+  _id: mongoose.Schema.Types.ObjectId;
+  buffer: mongoose.Schema.Types.Buffer;
+  name: string;
+}
+
+export enum ELanguage {
+  EN = 'EN',
+  UK = 'UK',
+}
+
+export interface ISoftSkill {
+  _id: mongoose.Schema.Types.ObjectId;
+  title: string;
+  text: string;
+  icon: mongoose.Schema.Types.ObjectId | null;
 }

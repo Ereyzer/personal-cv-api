@@ -1,6 +1,6 @@
-import { InternalServerError } from '../config/err-const';
-import { InfoCollection } from '../db/models/info';
-import { rmFileFromUploadDir, saveFileToUploadDir } from '../utils/FileInUploadDir';
+import { InternalServerError } from '../config/err-const.ts';
+import { InfoCollection } from '../db/models/info.ts';
+import { rmFileFromUploadDir, saveFileToUploadDir } from '../utils/FileInUploadDir.ts';
 
 type AvatarDoc = { avatar: string | null } | null;
 type AvatarService = AvatarDoc | never;
@@ -12,7 +12,7 @@ export const updateAvatar = async (fileName: string): Promise<AvatarService> => 
   const data: AvatarDoc = await InfoCollection.findByIdAndUpdate(
     1,
     { avatar: url },
-    { new: true, strict: true, runValidators: true, fields: ['avatar'] }
+    { new: true, strict: true, run: true, fields: ['avatar'] }
   );
 
   if (!data) {

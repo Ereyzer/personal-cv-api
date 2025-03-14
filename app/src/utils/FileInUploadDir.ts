@@ -1,8 +1,8 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-import { TMP_UPLOAD_DIR, UPLOAD_DIR } from '../config/constants';
-import { getEnvVar } from './getEnvVar';
+import { TMP_UPLOAD_DIR, UPLOAD_DIR } from '../config/constants.ts';
+import { getEnvVar } from './getEnvVar.ts';
 
 export const saveFileToUploadDir = async (fileName: string): Promise<string | never> => {
   const pathToTMPFile: string = path.join(TMP_UPLOAD_DIR, fileName);

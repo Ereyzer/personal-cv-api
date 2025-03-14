@@ -5,7 +5,7 @@ import {
   isInstagramLink,
   isLinkedinLink,
   isPhoneLink,
-} from './linkValidators';
+} from './linkValidators.ts';
 
 // const simleInfoFields: string[] = [
 //   'avatar',

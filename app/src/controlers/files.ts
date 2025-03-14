@@ -1,10 +1,18 @@
-import { HttpCode } from '../config/constants';
-import { BadRequest, InternalServerError } from '../config/err-const';
-import { IController } from '../interfaces/interface_controlers';
-import { updateAvatar } from '../services/files';
+import { Express } from 'express';
+
+import { HttpCode } from '../config/constants.ts';
+import { BadRequest, InternalServerError, NotFoundError } from '../config/err-const.ts';
+import {
+  IController,
+  ISvgDbData,
+  ISvgDbDataCollection,
+} from '../interfaces/interface_controlers.ts';
+import { updateAvatar } from '../services/avatar.ts';
+import { addIcons, getAllIcons, getIconById } from '../services/icon.ts';
+import { fromBinaryToSvg, rmTmpFile } from '../utils/svgTobinaryConverter.ts';
 
 export const uploadAvatar: IController = async (req, res) => {
-  const avatar = req.file;
+  const avatar: Express.Multer.File | undefined = req.file;
 
   const name = avatar?.filename;
   if (!name) throw new BadRequest();
@@ -19,4 +27,41 @@ export const uploadAvatar: IController = async (req, res) => {
     },
   });
   return;
+};
+
+export const getAllIconController: IController = async (req, res) => {
+  const buffers: ISvgDbDataCollection[] = await getAllIcons();
+  const data = buffers.map(({ name, _id }) => ({ name, _id }));
+
+  res.status(HttpCode.OK).json({
+    status: HttpCode.OK,
+    data,
+  });
+};
+
+export const getOneIconController: IController = async (req, res) => {
+  const { id } = req.params;
+
+  const icon: ISvgDbDataCollection | null = await getIconById(id);
+
+  if (!icon) throw new NotFoundError('not found any icons');
+  const { buffer, name } = icon;
+
+  const filePaths: string = await fromBinaryToSvg({ buffer, name } as unknown as ISvgDbData);
+
+  res.status(200).sendFile(filePaths);
+  rmTmpFile(filePaths);
+};
+
+export const uploadSvgIcons: IController = async (req, res) => {
+  const icons: Express.Multer.File[] | undefined = req.files as Express.Multer.File[];
+  if (!icons) {
+    throw new InternalServerError();
+  }
+  const data = await addIcons(icons);
+
+  res.status(HttpCode.CREATED).json({
+    status: HttpCode.CREATED,
+    data,
+  });
 };

@@ -32,7 +32,7 @@ RUN --mount=type=bind,source=package.json,target=package.json \
 # USER node
 
 # Copy the rest of the source files into the image.
-COPY package.json nodemon.json tsconfig.json /app/
+COPY package.json tsconfig.json /app/
 
 RUN npm install nodemon -g
 RUN npm install tsc -g
@@ -63,6 +63,8 @@ ENV MONGODB_DB=${MONGODB_DB}
 EXPOSE ${APP_PORT}
 
 # Run the application.
-CMD npm run develop-mode-in-container
+# CMD npm run develop-mode-in-container
+
+CMD npm run dev
 
 

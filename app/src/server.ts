@@ -2,14 +2,15 @@ import fs from 'fs';
 import path from 'path';
 
 import express from 'express';
-import { getEnvVar } from './utils/getEnvVar';
+import { getEnvVar } from './utils/getEnvVar.ts';
 import swaggerUi from 'swagger-ui-express';
 
-import AdminRouter from './routers/admin';
-import { __dirname, UPLOAD_DIR } from './config/constants';
-import { errorHandler } from './middlewares/errorHandler';
-import { NotFoundError } from './config/err-const';
-import { ctrlWrapper } from './utils/ctrlWrapper';
+import AdminRouter from './routers/admin.ts';
+import { __dirname, UPLOAD_DIR } from './config/constants.ts';
+import { errorHandler } from './middlewares/errorHandler.ts';
+import { NotFoundError } from './config/err-const.ts';
+import { ctrlWrapper } from './utils/ctrlWrapper.ts';
+// import { getAllIcons } from './services/icon';
 
 const swaggerDocument = JSON.parse(
   fs.readFileSync(path.join(__dirname, 'swagger/swagger.json'), 'utf8')
@@ -26,11 +27,12 @@ export const startServer = () => {
 
   app.get('/', async (_req, res) => {
     const message = 'Hello World';
+    // const data = await getAllIcons();
     res.status(200).contentType('aplication/json').send({ message });
   });
 
   app.use('/uploads', ctrlWrapper(express.static(UPLOAD_DIR)));
-  app.use(AdminRouter);
+  app.use('/admin', AdminRouter);
   // SWAGGER
   app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
   // WRONG url
