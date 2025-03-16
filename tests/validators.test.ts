@@ -34,8 +34,6 @@ describe('hooks', function () {
   test('linkedin link error', () => {
     const link = 'https://www.com/in/some-user-s7dujew9/';
     expect(() => {
-      console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-
       isLinkedinLink(link, helpers);
     }).toThrowError(Joi.ValidationError);
     // Check if helpers.error was called

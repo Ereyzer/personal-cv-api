@@ -24,8 +24,13 @@ import {
 } from '../controlers/files.ts';
 import { validateAvatar, validateIcon } from '../middlewares/validateFile.ts';
 import { avatarValidSchema, iconValidSchema } from '../validation/fileValidators.ts';
-import { createSoftSkillController, getSoftSkillController } from '../controlers/softSkills.ts';
 import {
+  createSoftSkillController,
+  getAllSoftSkillsController,
+  getSoftSkillController,
+} from '../controlers/softSkills.ts';
+import {
+  SoftSkillsAllParamsSchema,
   SoftSkillsParamsValidScchema,
   SoftSkillsUpsertBodySchema,
 } from '../validation/softSkils.ts';
@@ -86,6 +91,11 @@ router.patch(
   ctrlWrapper(patchInfoController)
 );
 
+router.get(
+  '/softSkills/:language',
+  validateParams(SoftSkillsAllParamsSchema),
+  ctrlWrapper(getAllSoftSkillsController)
+);
 router.get(
   '/softSkills/:id/:language',
   validateParams(SoftSkillsParamsValidScchema),

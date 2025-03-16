@@ -84,3 +84,13 @@ export interface ISoftSkill {
   text: string;
   icon: mongoose.Schema.Types.ObjectId | null;
 }
+
+export interface IPaginationResp {
+  page: number;
+  perPage: number;
+  totalItems: number;
+  totalPages: number;
+  hasPrevPage: boolean;
+  hasNextPage: boolean;
+  data: mongoose.Document[];
+}

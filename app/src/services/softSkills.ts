@@ -1,13 +1,62 @@
 import mongoose from 'mongoose';
 
-import { ELanguage, ISoftSkill } from '../interfaces/interface_controlers.ts';
+import { ELanguage, ISoftSkill, IPaginationResp } from '../interfaces/interface_controlers.ts';
 import { SoftSkillsCollection } from '../db/models/softSkills.ts';
 import { EnSoftSkillsCollection, UkSoftSkillsCollection } from '../db/models/languageSupport.ts';
 import { NotFoundError } from '../config/err-const.ts';
+import { calculatePaginationData } from '../utils/calculatePaginationData.ts';
+
 // type TLenguage = 'EN' | 'UK';
 
 // en
 // get all
+export const getAllSoftSkills = async (
+  lang: ELanguage,
+  page: number,
+  perPage: number
+): Promise<IPaginationResp> => {
+  let skills: mongoose.Document[] = [];
+  let totalItems: number = 0;
+
+  const queryBuilder = (
+    model: typeof mongoose.Model
+  ): { count: Promise<number>; query: Promise<mongoose.Document[]> } => {
+    const skip = (page - 1) * perPage;
+
+    const count: Promise<number> = model.find().countDocuments();
+    const query: Promise<mongoose.Document[]> = model
+      .find()
+      .populate('_id')
+      .skip(skip)
+      .limit(perPage)
+      .exec();
+    return { count, query };
+  };
+  switch (lang) {
+    case ELanguage.EN:
+      totalItems = await queryBuilder(EnSoftSkillsCollection).count;
+      skills = await queryBuilder(EnSoftSkillsCollection).query;
+      break;
+    case ELanguage.UK:
+      totalItems = await queryBuilder(UkSoftSkillsCollection).count;
+      skills = await queryBuilder(UkSoftSkillsCollection).query;
+      break;
+
+    default:
+      throw new NotFoundError('this languge did not support');
+      break;
+  }
+
+  const responses = skills.map(skill => {
+    const response = skill.toJSON();
+    return { ...response, ...response._id };
+  });
+
+  return {
+    ...calculatePaginationData(totalItems, page, perPage),
+    data: responses,
+  };
+};
 
 // get one
 export const getOneSoftSkill = async (id: mongoose.Schema.Types.ObjectId, lang: ELanguage) => {
