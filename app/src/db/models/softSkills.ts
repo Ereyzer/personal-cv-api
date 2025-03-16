@@ -12,7 +12,7 @@ const SoftSkillsSchema = new mongoose.Schema<Pick<ISoftSkill, '_id' | 'icon'>>(
       type: mongoose.Schema.Types.ObjectId,
       require: false,
       default: null,
-      //   ref: 'icons',
+      ref: 'icons',
     },
   },
   {

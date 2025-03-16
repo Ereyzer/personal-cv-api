@@ -30,10 +30,19 @@ import {
   getSoftSkillController,
 } from '../controlers/softSkills.ts';
 import {
+  PaginationQuerySchema,
   SoftSkillsAllParamsSchema,
   SoftSkillsParamsValidScchema,
   SoftSkillsUpsertBodySchema,
 } from '../validation/softSkils.ts';
+import { validateQuery } from '../middlewares/validateQuery.ts';
+import { HardSkillsCreateBodySchema } from '../validation/hardSkills.ts';
+import {
+  createHardSkillController,
+  getAllHardSkillsController,
+  updateHardSkillController,
+} from '../controlers/hardSkills.ts';
+import { IdValidationSchema } from '../validation/schemas.ts';
 
 const router = Router();
 
@@ -94,6 +103,7 @@ router.patch(
 router.get(
   '/softSkills/:language',
   validateParams(SoftSkillsAllParamsSchema),
+  validateQuery(PaginationQuerySchema),
   ctrlWrapper(getAllSoftSkillsController)
 );
 router.get(
@@ -107,4 +117,22 @@ router.post(
   ctrlWrapper(createSoftSkillController)
 );
 
+router.post(
+  '/hardSkills',
+  validateBody(HardSkillsCreateBodySchema),
+  ctrlWrapper(createHardSkillController)
+);
+
+router.put(
+  '/hardSkills/:_id',
+  validateParams(IdValidationSchema),
+  validateBody(HardSkillsCreateBodySchema),
+  ctrlWrapper(updateHardSkillController)
+);
+
+router.get(
+  '/hardSkills',
+  validateQuery(PaginationQuerySchema),
+  ctrlWrapper(getAllHardSkillsController)
+);
 export default router;
