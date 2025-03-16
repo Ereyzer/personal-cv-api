@@ -3,6 +3,9 @@ import { ELanguage } from '../interfaces/interface_controlers.ts';
 
 export const SoftSkillsAllParamsSchema = Joi.object({
   language: Joi.string().valid(ELanguage.EN, ELanguage.UK).required(),
+});
+
+export const PaginationQuerySchema = Joi.object({
   page: Joi.string(),
   perPage: Joi.string(),
 });

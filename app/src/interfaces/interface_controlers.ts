@@ -67,6 +67,7 @@ export interface ISvgDbData {
   buffer: Buffer;
   name: string;
 }
+
 export interface ISvgDbDataCollection extends Document {
   _id: mongoose.Schema.Types.ObjectId;
   buffer: mongoose.Schema.Types.Buffer;
@@ -93,4 +94,10 @@ export interface IPaginationResp {
   hasPrevPage: boolean;
   hasNextPage: boolean;
   data: mongoose.Document[];
+}
+
+export interface IHardSkill {
+  _id: mongoose.Schema.Types.ObjectId;
+  image: mongoose.Schema.Types.String | null;
+  title: mongoose.Schema.Types.String;
 }

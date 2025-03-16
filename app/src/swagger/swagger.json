@@ -292,6 +292,13 @@
             "description": "choose language",
             "required": true,
             "example": "EN"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "choose language",
+            "required": true,
+            "example": "67d2b18e785705c6acb80d8a"
           }
         ],
         "responses": {
@@ -577,6 +584,204 @@
           }
         }
       }
+    },
+    "/admin/hardSkills": {
+      "get": {
+        "summary": "get hard skill",
+        "description": "Return Hard Skils list with paganation",
+        "tags": ["admin"],
+        "responses": {
+          "200": {
+            "description": "Return Soft Skils list with paganation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "format": "int32",
+                      "example": 201
+                    },
+
+                    "page": {
+                      "type": "integer",
+                      "format": "int32",
+                      "example": 1
+                    },
+                    "perPage": {
+                      "type": "integer",
+                      "format": "int32",
+                      "example": 5
+                    },
+                    "totalItems": {
+                      "type": "integer",
+                      "format": "int32",
+                      "example": 100
+                    },
+                    "totalPages": {
+                      "type": "integer",
+                      "format": "int32",
+                      "example": 10
+                    },
+                    "hasPrevPage": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "hasNextPage": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "example": {
+                          "_id": "67d6ccdc770a7bc81eb3a092",
+                          "image": "https://github.com/github/explore/blob/main/topics/html/html.png?raw=true",
+                          "title": "HTML",
+                          "createdAt": "2025-03-16T13:06:36.050Z",
+                          "updatedAt": "2025-03-16T14:00:25.262Z",
+                          "__v": 0
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "UNPROCCESSABLE ENTITY",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unprocessable_entity"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "add new Hard Skill",
+        "tags": ["admin"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/newHardSkillRequestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Return Soft Skils list with paganation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "format": "int32",
+                      "example": 201
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {
+                        "_id": "67d6ccdc770a7bc81eb3a092",
+                        "image": "https://github.com/github/explore/blob/main/topics/html/html.png?raw=true",
+                        "title": "HTML",
+                        "createdAt": "2025-03-16T13:06:36.050Z",
+                        "updatedAt": "2025-03-16T14:00:25.262Z",
+                        "__v": 0
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "UNPROCCESSABLE ENTITY",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unprocessable_entity"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/hardSkills/{_id}": {
+      "put": {
+        "summary": "update Hard Skill",
+        "tags": ["admin"],
+        "parameters": [
+          {
+            "name": "_id",
+            "type": "string",
+            "in": "path",
+            "required": true,
+            "example": "67d6ccdc770a7bc81eb3a092"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/updateHardSkillRequestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Return Soft Skils list with paganation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "format": "int32",
+                      "example": 201
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {
+                        "_id": "67d6ccdc770a7bc81eb3a092",
+                        "image": "https://github.com/github/explore/blob/main/topics/html/html.png?raw=true",
+                        "title": "HTML",
+                        "createdAt": "2025-03-16T13:06:36.050Z",
+                        "updatedAt": "2025-03-16T14:00:25.262Z",
+                        "__v": 0
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "UNPROCCESSABLE ENTITY",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unprocessable_entity"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -768,6 +973,36 @@
                 "example": "507f1f77bcf86cd799439011"
               }
             }
+          }
+        }
+      },
+      "newHardSkillRequestBody": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "required": true,
+            "example": "HTML"
+          },
+          "image": {
+            "type": "string",
+            "required": false,
+            "example": "http://some_link"
+          }
+        }
+      },
+      "updateHardSkillRequestBody": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "required": false,
+            "example": "HTML"
+          },
+          "image": {
+            "type": "string",
+            "required": false,
+            "example": "http://some_link"
           }
         }
       }
