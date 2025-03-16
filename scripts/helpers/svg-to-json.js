@@ -1,9 +1,9 @@
 import path from 'node:path';
 import fs from "node:fs/promises";
-import mongoose from 'mongoose';
+
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
-const { SvgCOllection } = require('../../tmp/svg.js');
+const { IconCOllection } = require('../../tmp/icon.js');
 
 
 const newFile = process.argv[2];
@@ -31,20 +31,21 @@ async function readSvgFile(filePath) {
 }
 
 const svgToJson = async () => {
-
     try {
         const filePaths = await readSvgDir(process.argv[3]);
+        // const buffers = await Promise.all(filePaths.map(readSvgFile));
+
         const buffers = await Promise.all(filePaths.map(readSvgFile));
         const jsonBaff = [];
         for (let i = 0; i < buffers.length; i++) {
-            jsonBaff[i] = new SvgCOllection({
-                "_id": new mongoose.Types.ObjectId(),
+            jsonBaff[i] = new IconCOllection({
                 "name": path.basename(filePaths[i]),
                 "buffer": JSON.stringify(buffers[i])
             })
         }
 
-        return JSON.stringify(jsonBaff, null, 4);
+        return new Buffer(JSON.stringify(jsonBaff));
+
 
     } catch (e) {
 

@@ -6,50 +6,105 @@ import {
   patchInfoController,
   patchInfoEnController,
   patchInfoUkController,
-} from '../controlers/info';
-import { ctrlWrapper } from '../utils/ctrlWrapper';
-import { validateParams } from '../middlewares/validateParams';
+} from '../controlers/info.ts';
+import { ctrlWrapper } from '../utils/ctrlWrapper.ts';
+import { validateParams } from '../middlewares/validateParams.ts';
 import {
   updateLangFildeValidSchema,
   updateSimpleBodyValidSchema,
   updateSimpleFildeValidSchema,
-} from '../validation/info';
-import { validateBody } from '../middlewares/validateBody';
-// import path from 'path';
-// import { HttpCode, __dirname } from '../config/constants';
+} from '../validation/info.ts';
+import { validateBody } from '../middlewares/validateBody.ts';
+import { upload } from '../middlewares/multer.ts';
+import {
+  getAllIconController,
+  getOneIconController,
+  uploadAvatar,
+  uploadSvgIcons,
+} from '../controlers/files.ts';
+import { validateAvatar, validateIcon } from '../middlewares/validateFile.ts';
+import { avatarValidSchema, iconValidSchema } from '../validation/fileValidators.ts';
+import {
+  createSoftSkillController,
+  getAllSoftSkillsController,
+  getSoftSkillController,
+} from '../controlers/softSkills.ts';
+import {
+  SoftSkillsAllParamsSchema,
+  SoftSkillsParamsValidScchema,
+  SoftSkillsUpsertBodySchema,
+} from '../validation/softSkils.ts';
 
 const router = Router();
 
 // TODO: admin page
-// router.get('/admin', async (_req: Request, res: Response) => {
+// router.get('', async (_req: Request, res: Response) => {
 //     res.status(HttpCode.OK).sendFile(path.join(__dirname, 'src/static/html/index.html'));
 // });
-// router.get('/admin', async (_req: Request, res: Response) => {
+// router.get('', async (_req: Request, res: Response) => {
 //     res.status(HttpCode.OK).json({
 //         message: 'hello'
 //     });
 // });
 
 // TODO: Get all exisist info
-router.get('/admin/info', ctrlWrapper(getAllInfoController));
+router.post(
+  '/files/avatar',
+  upload.single('avatar'),
+  validateAvatar(avatarValidSchema),
+  ctrlWrapper(uploadAvatar)
+);
+
+router.get('/info', ctrlWrapper(getAllInfoController));
+
+// router.get svg
+
+router.get('/info/icons', ctrlWrapper(getAllIconController));
+
+router.get('/files/icon/:id', ctrlWrapper(getOneIconController));
+
+router.post(
+  '/files/icons',
+  upload.array('icons', 10),
+  validateIcon(iconValidSchema),
+  ctrlWrapper(uploadSvgIcons)
+);
+
 router.patch(
-  '/admin/info/en/:field',
+  '/info/en/:field',
   validateParams(updateLangFildeValidSchema),
   validateBody(updateSimpleBodyValidSchema),
   ctrlWrapper(patchInfoEnController)
 );
+
 router.patch(
-  '/admin/info/uk/:field',
+  '/info/uk/:field',
   validateParams(updateLangFildeValidSchema),
   validateBody(updateSimpleBodyValidSchema),
   ctrlWrapper(patchInfoUkController)
 );
+
 router.patch(
-  '/admin/info/:field',
+  '/info/:field',
   validateParams(updateSimpleFildeValidSchema),
   validateBody(updateSimpleBodyValidSchema),
   ctrlWrapper(patchInfoController)
 );
-// TODO:  UPDATE bilingual fields info
+
+router.get(
+  '/softSkills/:language',
+  validateParams(SoftSkillsAllParamsSchema),
+  ctrlWrapper(getAllSoftSkillsController)
+);
+router.get(
+  '/softSkills/:id/:language',
+  validateParams(SoftSkillsParamsValidScchema),
+  ctrlWrapper(getSoftSkillController)
+);
+router.post(
+  '/softSkills',
+  validateBody(SoftSkillsUpsertBodySchema),
+  ctrlWrapper(createSoftSkillController)
+);
 
 export default router;

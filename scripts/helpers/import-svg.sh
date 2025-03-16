@@ -14,7 +14,8 @@ exit 404
 fi
 touch $tmp_json
 
-npx tsc ./app/src/db/models/svg.ts --outDir $TMP
+npx tsc ./app/src/db/models/icon.ts --outDir $TMP
+
 package="${TMP}/package.json"
 touch $package
 

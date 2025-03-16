@@ -1,6 +1,6 @@
 import Joi from 'joi';
-import { IController } from '../interfaces/interface_controlers';
-import { InternalServerError, UnprocessableEntityError } from '../config/err-const';
+import { IController } from '../interfaces/interface_controlers.ts';
+import { InternalServerError, UnprocessableEntityError } from '../config/err-const.ts';
 
 export const validateBody =
   (schema: Joi.ObjectSchema): IController =>

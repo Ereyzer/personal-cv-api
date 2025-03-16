@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import { IError } from '../config/err-const';
-import { HttpCode } from '../config/constants';
+import { IError } from '../config/err-const.ts';
+import { HttpCode } from '../config/constants.ts';
 
 type HandlerFunc = (err: IError, req: Request, res: Response, next: NextFunction) => void;
 

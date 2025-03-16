@@ -44,7 +44,6 @@ export const patchInfoController: IController = async (req, res, next) => {
 };
 
 export const patchInfoEnController: IController = async (req, res, next) => {
-  // const EN = 'en';
   const {
     params: { field },
     body: { value },
@@ -66,9 +65,6 @@ export const patchInfoEnController: IController = async (req, res, next) => {
 
   res.status(HttpCode.CREATED).json({
     status: HttpCode.CREATED,
-    // data: {[`${field}`]: {
-    //   en: data[`${field}`].en,
-    // }},
     data,
     field,
   });
