@@ -2,7 +2,7 @@
   "name": "personal-cv-api",
   "version": "1.0.0",
   "description": "API for my CV ",
-  "main": "src/index.ts",
+  "main": "public/index.js",
   "type": "module",
   "scripts": {
     "test": "jest",

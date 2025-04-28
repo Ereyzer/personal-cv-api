@@ -1,6 +1,0 @@
-{
-  "restartable": "rs",
-  "watch": ["/app/src"],
-  "ext": ".ts, json",
-  "ignore": ["node_modules"]
-}
