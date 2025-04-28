@@ -19,8 +19,8 @@ services:
       - db-mongo
     env_file:
       - .env
-    # environment:
-    #   NODE_ENV: dev
+    environment:
+      NODE_ENV: dev
     ports:
       - ${APP_PORT}:${APP_PORT}
     restart: unless-stopped
@@ -44,7 +44,7 @@ services:
     # volumes:
     #   - data:/data/db
     ports:
-      - "27017:27017"
+      - '27017:27017'
     # logging:
     #   driver: none
 # volumes:

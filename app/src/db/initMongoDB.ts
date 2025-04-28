@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 import { getEnvVar } from '../utils/getEnvVar.ts';
-import { varsEnv } from '../config/constants.ts';
+import { NODE_ENV, varsEnv } from '../config/constants.ts';
 
 export const initMongoDB = async () => {
   try {
@@ -13,10 +13,12 @@ export const initMongoDB = async () => {
     // const db = getEnvVar(varsEnv.MONGODB_DB);
 
     const url = getEnvVar(varsEnv.MONGODB_URL);
+
     // await mongoose.connect(`${mongo}${host}:${port}/${db}`);
     await mongoose.connect(url);
-
-    console.log('Mongo connection successfully established!');
+    if (NODE_ENV === 'dev') {
+      console.log('Mongo connection successfully established!');
+    }
   } catch (e) {
     console.log('Error while setting up mongo connection', e);
     throw e;
