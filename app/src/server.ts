@@ -1,19 +1,25 @@
-import fs from 'fs';
-import path from 'path';
+// import fs from 'fs';
+// import path from 'path';
 
 import express from 'express';
-import swaggerUi from 'swagger-ui-express';
+// import swaggerUi from 'swagger-ui-express';
 
 import AdminRouter from './routers/admin.ts';
-import { __dirname, HOST, NODE_ENV, PORT, UPLOAD_DIR } from './config/constants.ts';
+import {
+  // __dirname,
+  HOST,
+  NODE_ENV,
+  PORT,
+  UPLOAD_DIR,
+} from './config/constants.ts';
 import { errorHandler } from './middlewares/errorHandler.ts';
 import { NotFoundError } from './config/err-const.ts';
 import { ctrlWrapper } from './utils/ctrlWrapper.ts';
 // import { getAllIcons } from './services/icon';
 
-const swaggerDocument = JSON.parse(
-  fs.readFileSync(path.join(__dirname, 'swagger/swagger.json'), 'utf8')
-);
+// const swaggerDocument = JSON.parse(
+//   fs.readFileSync(path.join(__dirname, 'swagger/swagger.json'), 'utf8')
+// );
 
 export const startServer = () => {
   const app = express();
@@ -30,7 +36,7 @@ export const startServer = () => {
   app.use('/uploads', ctrlWrapper(express.static(UPLOAD_DIR)));
   app.use('/admin', AdminRouter);
   // SWAGGER
-  app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+  // app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
   // WRONG url
   app.use('*', req => {
     const url: string = `${req.protocol}//${req.get('host')}${req.originalUrl}`;
