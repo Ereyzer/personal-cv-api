@@ -13,4 +13,4 @@ const bootstrap = async () => {
   startServer();
 };
 
-bootstrap();
+export default bootstrap;
