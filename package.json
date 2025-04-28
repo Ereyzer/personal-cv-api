@@ -22,7 +22,8 @@
     "prepare": "husky install",
     "dev": "nodemon --exec tsx watch src/index.ts --tsconfig tsconfig.dev.json",
     "start": "node src/index.js",
-    "build": "tsc --project tsconfig.prod.json"
+    "build": "tsc --project tsconfig.prod.json",
+    "vercel-build": "echo Hello"
   },
   "keywords": [],
   "author": "Ivan Laver <ereyzer142@gmail.com>",
