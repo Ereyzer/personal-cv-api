@@ -1,0 +1,27 @@
+services:
+  api-app:
+    container_name: api_app_prod
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+      args:
+        NODE_VERSION: 22.13.0
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: prod
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    restart: unless-stopped
+    # volumes:
+    #   - /app/upload:/app/upload
+    # command: npm run dev
+    # develop:
+    #   watch:
+    #     - path: .env
+    #       action: rebuild
+    #     - path: package.json
+    #       action: rebuild
+    #     - path: ./app/src
+    #       target: /app/src
+    #       action: sync

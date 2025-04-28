@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "allowImportingTsExtensions": true /* Allow imports to include TypeScript file extensions. Requires '--moduleResolution bundler' and either '--noEmit' or '--emitDeclarationOnly' to be set. */,
+    "strict": true /* Enable all strict type-checking options. */
+    // "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */
+  },
+  "ts-node": {
+    "swc": true
+  }
+}

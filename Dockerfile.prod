@@ -26,18 +26,18 @@ WORKDIR /app
 #     npm ci --omit=dev
 RUN --mount=type=bind,source=package.json,target=package.json \
     --mount=type=bind,source=package-lock.json,target=package-lock.json \
-    --mount=type=cache,target=/root/.npm \
-    npm ci --include=dev
+    --mount=type=cache,target=/root/.npm
 # Run the application as a non-root user.
 # USER node
 
 # Copy the rest of the source files into the image.
-COPY package.json tsconfig.base.json tsconfig.dev.json /app/
+COPY package.json /app/
 
-RUN npm install nodemon -g
-RUN npm install tsc -g
+# RUN npm install nodemon -g
+# RUN npm install tsc -g
 RUN npm i
-COPY ./app/src ./src  
+
+COPY ./dist ./src                     
 
 
 ARG APP_HOST
@@ -65,6 +65,5 @@ EXPOSE ${APP_PORT}
 # Run the application.
 # CMD npm run develop-mode-in-container
 
-CMD npm run dev
-
+CMD npm run start
 
