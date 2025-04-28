@@ -1,4 +1,5 @@
 import path from 'path';
+import { getEnvVar } from '../utils/getEnvVar.ts';
 
 // ENV names
 export const varsEnv = {
@@ -8,6 +9,8 @@ export const varsEnv = {
   MONGODB_PORT: 'MONGODB_PORT',
   MONGODB_DB: 'MONGODB_DB',
   APP_HOST: 'APP_HOST',
+  APP_PORT: 'APP_PORT',
+  NODE_ENV: 'NODE_ENV',
   MONGODB_HOST: 'MONGODB_HOST',
   MONGODB_URL: 'MONGODB_URL',
 };
@@ -27,6 +30,10 @@ export enum HttpCode {
   INTERNAL_SERVER_ERROR = 500,
 }
 
+export const NODE_ENV: string = getEnvVar(varsEnv.NODE_ENV, 'prod');
+
+export const PORT: number = Number(getEnvVar(varsEnv.APP_PORT, '3001'));
+export const HOST: string = getEnvVar(varsEnv.APP_HOST, 'localhost');
 export const __dirname: string = path.dirname(process.argv[1]);
 
 export const TMP_UPLOAD_DIR: string = path.join(__dirname, '../', 'tmp');
