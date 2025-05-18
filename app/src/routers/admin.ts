@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
 // import { Router } from 'express';
 
 import {
@@ -15,15 +15,15 @@ import {
   updateSimpleFildeValidSchema,
 } from '../validation/info.ts';
 import { validateBody } from '../middlewares/validateBody.ts';
-import { upload } from '../middlewares/multer.ts';
+// import { upload } from '../middlewares/multer.ts';
 import {
   getAllIconController,
-  getOneIconController,
+  // getOneIconController,
   uploadAvatar,
-  uploadSvgIcons,
+  // uploadSvgIcons,
 } from '../controlers/files.ts';
-import { validateAvatar, validateIcon } from '../middlewares/validateFile.ts';
-import { avatarValidSchema, iconValidSchema } from '../validation/fileValidators.ts';
+// import { validateAvatar, validateIcon } from '../middlewares/validateFile.ts';
+// import { avatarValidSchema, iconValidSchema } from '../validation/fileValidators.ts';
 import {
   createSoftSkillController,
   getAllSoftSkillsController,
@@ -55,12 +55,15 @@ const router = Router();
 //         message: 'hello'
 //     });
 // });
+router.get('/', async (req: Request, res: Response) => {
+  res.send('Hello admin');
+});
 
-// TODO: Get all exisist info
+// TODO: UPLOAD AVATAR
 router.post(
   '/files/avatar',
-  upload.single('avatar'),
-  validateAvatar(avatarValidSchema),
+  // upload.single('avatar'),
+  // validateAvatar(avatarValidSchema),
   ctrlWrapper(uploadAvatar)
 );
 
@@ -69,15 +72,15 @@ router.get('/info', ctrlWrapper(getAllInfoController));
 // router.get svg
 
 router.get('/info/icons', ctrlWrapper(getAllIconController));
-
-router.get('/files/icon/:id', ctrlWrapper(getOneIconController));
-
-router.post(
-  '/files/icons',
-  upload.array('icons', 10),
-  validateIcon(iconValidSchema),
-  ctrlWrapper(uploadSvgIcons)
-);
+// TODO: GET ICON BY ID
+// router.get('/files/icon/:id', ctrlWrapper(getOneIconController));
+// TODO: ADD ICON
+// router.post(
+//   '/files/icons',
+//   upload.array('icons', 10),
+//   validateIcon(iconValidSchema),
+//   ctrlWrapper(uploadSvgIcons)
+// );
 
 router.patch(
   '/info/en/:field',

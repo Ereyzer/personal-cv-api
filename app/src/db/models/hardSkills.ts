@@ -1,5 +1,6 @@
-import { IHardSkill } from 'app/src/interfaces/interface_controlers.ts';
 import mongoose from 'mongoose';
+
+import { IHardSkill } from '../../interfaces/interface_controlers.ts';
 
 export const HardSkillsSchema = new mongoose.Schema<IHardSkill>(
   {

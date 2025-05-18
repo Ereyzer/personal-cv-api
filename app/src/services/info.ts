@@ -3,7 +3,10 @@ import { InfoCollection } from '../db/models/info.ts';
 import { IInfo, IPayloadLangInfo, IPayloadSimpleInfo } from '../interfaces/interface_controlers.ts';
 
 export const getInfo = async () => {
+  console.log('getInfo');
   const info: IInfo | null = await InfoCollection.findById(1);
+  console.log('info: ' + info);
+
   return info;
 };
 

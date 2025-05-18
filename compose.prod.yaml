@@ -1,0 +1,13 @@
+services:
+  api-app:
+    container_name: api_app
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NODE_VERSION: 22.13.0
+    environment:
+      NODE_ENV: dev
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    restart: unless-stopped

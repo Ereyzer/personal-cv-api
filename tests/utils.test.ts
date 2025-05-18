@@ -4,8 +4,8 @@ import { afterEach, beforeEach, afterAll, beforeAll, describe, expect, test } fr
 // import { ctrlWrapper } from '../app/src/utils/ctrlWrapper.ts';
 // import { NextFunction } from 'express-serve-static-core';
 
-import { parseNumber } from '../app/src/utils/parsePaginationParams.ts';
-import { calculatePaginationData } from '../app/src/utils/calculatePaginationData.ts';
+import { parseNumber } from '../app/src/utils/parsePaginationParams';
+import { calculatePaginationData } from '../app/src/utils/calculatePaginationData';
 
 describe('hooks', function () {
   beforeAll(() => {
