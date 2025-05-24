@@ -9,12 +9,12 @@ export const createDiirIfNotExist = async (tmpPathString: string) => {
 
     // console.log(path.join(path.dirname(tmpPathString), '../'));
 
-    console.log(await fs.readdir('/var/task'));
-    console.log(await fs.readdir('/var/task/app'));
-    console.log(await fs.readdir('/var/task/app/src'));
-    console.log(await fs.readdir('/var/task/app/src/swagger'));
+    // console.log(await fs.readdir('/var/task'));
+    // console.log(await fs.readdir('/var/task/app'));
+    // console.log(await fs.readdir('/var/task/app/src'));
+    // console.log(await fs.readdir('/var/task/app/src/swagger'));
 
-    console.log(await fs.readdir('/var/task/app/src/swagger/swagger-ui-dist'));
+    // console.log(await fs.readdir('/var/task/app/src/swagger/swagger-ui-dist'));
     // console.log(await fs.readdir('/var/task/public'));
 
     // console.log(await fs.readdir(pathToSwaggerUi));

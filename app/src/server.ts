@@ -1,9 +1,7 @@
 // import fs from 'fs';
 // import path from 'path';
-
 import express from 'express';
 import swaggerUi from 'swagger-ui-express';
-import swaggerUiDist from './swagger/swagger-ui-dist/index.js';
 
 import AdminRouter from './routers/admin.ts';
 import {
@@ -18,16 +16,6 @@ import { NotFoundError } from './config/err-const.ts';
 // import { ctrlWrapper } from './utils/ctrlWrapper.ts';
 // import { getAllIcons } from './services/icon';
 import swaggerFile from './swagger/swagger.ts';
-// console.log(__dirname);
-// const SwaggerUIBundle = swaggerUiDist.SwaggerUIBundle;
-
-// const ui = SwaggerUIBundle({
-//   url: 'https://petstore.swagger.io/v2/swagger.json',
-//   dom_id: '#swagger-ui',
-//   presets: [SwaggerUIBundle.presets.apis, SwaggerUIBundle.SwaggerUIStandalonePreset],
-//   layout: 'StandaloneLayout',
-// });
-export const pathToSwaggerUi = swaggerUiDist.absolutePath();
 
 // const swaggerDocument = JSON.parse(
 //   fs.readFileSync(path.join(__dirname, 'swagger/swagger.json'), 'utf8')
@@ -35,18 +23,18 @@ export const pathToSwaggerUi = swaggerUiDist.absolutePath();
 
 const swaggerDocument = JSON.parse(swaggerFile);
 
-console.log(pathToSwaggerUi);
-
 export const startServer = () => {
   const app = express();
   app.use(express.json());
   //   // TODO: CORS !!!!!
   //   // TODO: some logs???
 
-  app.get('/', async (_req, res) => {
+  app.get('/hello', async (_req, res) => {
     const message = 'Hello World';
     // const data = await getAllIcons();
     // res.status(200).contentType('aplication/json').send({ message });
+    console.log(message);
+
     res.send(message);
   });
 
@@ -54,8 +42,15 @@ export const startServer = () => {
   app.use('/admin', AdminRouter);
   // SWAGGER
 
-  app.use(express.static(pathToSwaggerUi));
-  app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+  // app.use(
+  //   (req, res, next) => {
+  //     console.log(__dirname);
+
+  //     next();
+  //   },
+  //   express.static(path.join(__dirname, 'static'))
+  // );
+  app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
   // WRONG url
   app.use('*', req => {
     const url: string = `${req.protocol}//${req.get('host')}${req.originalUrl}`;
