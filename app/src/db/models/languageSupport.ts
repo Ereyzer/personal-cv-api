@@ -1,5 +1,6 @@
-import { ISoftSkill } from 'app/src/interfaces/interface_controlers.ts';
 import mongoose from 'mongoose';
+
+import { ISoftSkill } from '../../interfaces/interface_controlers.ts';
 
 export const LanguageSoftSkillDefinition = {
   _id: {

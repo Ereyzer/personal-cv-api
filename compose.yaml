@@ -18,7 +18,7 @@ services:
     depends_on:
       - db-mongo
     env_file:
-      - .env
+      - .env.example
     environment:
       NODE_ENV: dev
     ports:
@@ -33,8 +33,11 @@ services:
           action: rebuild
         - path: package.json
           action: rebuild
-        - path: ./app/src
-          target: /app/src
+        - path: ./app
+          target: ./app
+          action: sync
+        - path: ./static
+          target: ./static
           action: sync
 
   db-mongo:

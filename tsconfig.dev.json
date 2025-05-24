@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "allowImportingTsExtensions": true /* Allow imports to include TypeScript file extensions. Requires '--moduleResolution bundler' and either '--noEmit' or '--emitDeclarationOnly' to be set. */,
+    "rewriteRelativeImportExtensions": false /* Rewrite '.ts', '.tsx', '.mts', and '.cts' file extensions in relative import paths to their JavaScript equivalent in output files. */,
+    /* Emit */
+    "noEmit": true /* Disable emitting files from a compilation. */,
+    "removeComments": false /* Disable emitting comments. */
+  }
+}
