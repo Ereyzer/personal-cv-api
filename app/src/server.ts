@@ -1,7 +1,8 @@
 // import fs from 'fs';
 // import path from 'path';
+
 import express from 'express';
-import swaggerUi from 'swagger-ui-express';
+// import swaggerUi from 'swagger-ui-express';
 
 import AdminRouter from './routers/admin.ts';
 import {
@@ -41,15 +42,6 @@ export const startServer = () => {
   // app.use('/uploads', ctrlWrapper(express.static(UPLOAD_DIR)));
   app.use('/admin', AdminRouter);
   // SWAGGER
-
-  // app.use(
-  //   (req, res, next) => {
-  //     console.log(__dirname);
-
-  //     next();
-  //   },
-  //   express.static(path.join(__dirname, 'static'))
-  // );
   app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
   // WRONG url
   app.use('*', req => {
