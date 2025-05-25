@@ -21,7 +21,7 @@ export const startServer = () => {
   //   // TODO: CORS !!!!!
   //   // TODO: some logs???
 
-  app.get('/', async (_req, res) => {
+  app.get('/hello', async (_req, res) => {
     const message = 'Hello World';
     // const data = await getAllIcons();
     res.status(200).contentType('aplication/json').send({ message });

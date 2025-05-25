@@ -9,13 +9,14 @@ export default [
   {
     files: ["app/src/**/*.{js,mjs,cjs,ts}"],
     // ignores: ["**/*.config.js"],
-    ignores: ["**/eslint.config.js"],
+    ignores: ["**/eslint.config.js", "dist/**"],
     rules: {
       quotes: ["error", "single"],
       semi: ["error", "always"],
       // "no-unused-vars": "off",
-      "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern":"next"}],
+      "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "next" }],
       "no-undef": "warn",
+      "@typescript-eslint/no-require-imports": "off",
     },
 
   },
