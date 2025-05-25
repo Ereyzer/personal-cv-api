@@ -10,8 +10,11 @@ import { langFieldSchema, simpleFieldsSchema } from '../validation/info.ts';
 import Joi from 'joi';
 
 export const getAllInfoController: IController = async (_req, res) => {
+  console.log('Mongo connection GET ALL INFO!');
   const data = await getInfo();
-  if (!data) throw new InternalServerError();
+  console.log(data);
+
+  if (!data) throw new InternalServerError('did not get data');
 
   res.status(HttpCode.OK).json({
     status: HttpCode.OK,
