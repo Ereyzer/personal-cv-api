@@ -1,7 +1,9 @@
 import { NODE_ENV } from '../config/constants.ts';
 
 const baseDomain =
-  NODE_ENV === 'prod' ? 'https://personal-cv-api.vercel.app/' : 'http://localhost:3000/';
+  NODE_ENV === 'prod'
+    ? 'https://personal-cv-api-ivan-lavers-projects.vercel.app/'
+    : 'http://localhost:3000/';
 
 export default JSON.stringify({
   openapi: '3.0.0',
