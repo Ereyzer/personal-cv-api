@@ -32,7 +32,15 @@ RUN --mount=type=bind,source=package.json,target=package.json \
 # USER node
 
 # Copy the rest of the source files into the image.
+<<<<<<< HEAD
+<<<<<<< HEAD
+COPY package.json tsconfig.json /app/
+=======
 COPY package.json tsconfig.json tsconfig.dev.json  nodemon.json ./
+>>>>>>> 9485d5e (deploing on vercel using parcel)
+=======
+COPY package.json tsconfig.json tsconfig.dev.json  nodemon.json ./
+>>>>>>> dev
 
 RUN npm install nodemon -g
 RUN npm install tsc -g
