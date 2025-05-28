@@ -15,15 +15,21 @@ import {
   updateSimpleFildeValidSchema,
 } from '../validation/info.ts';
 import { validateBody } from '../middlewares/validateBody.ts';
-// import { upload } from '../middlewares/multer.ts';
+import { upload } from '../middlewares/multer.ts';
 import {
   getAllIconController,
   // getOneIconController,
   uploadAvatar,
   // uploadSvgIcons,
 } from '../controlers/files.ts';
-// import { validateAvatar, validateIcon } from '../middlewares/validateFile.ts';
-// import { avatarValidSchema, iconValidSchema } from '../validation/fileValidators.ts';
+import {
+  validateAvatar,
+  // validateIcon
+} from '../middlewares/validateFile.ts';
+import {
+  avatarValidSchema,
+  //  iconValidSchema
+} from '../validation/fileValidators.ts';
 import {
   createSoftSkillController,
   getAllSoftSkillsController,
@@ -62,8 +68,8 @@ router.get('/', async (req: Request, res: Response) => {
 // TODO: UPLOAD AVATAR
 router.post(
   '/files/avatar',
-  // upload.single('avatar'),
-  // validateAvatar(avatarValidSchema),
+  upload.single('avatar'),
+  validateAvatar(avatarValidSchema),
   ctrlWrapper(uploadAvatar)
 );
 

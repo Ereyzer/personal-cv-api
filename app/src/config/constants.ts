@@ -37,5 +37,5 @@ export const HOST: string = getEnvVar(varsEnv.APP_HOST, 'localhost');
 export const MONGO_URL = getEnvVar(varsEnv.MONGODB_URL);
 export const __dirname: string = path.dirname(process.argv[1]);
 
-export const TMP_UPLOAD_DIR: string = path.join(__dirname, 'tmp');
+export const TMP_UPLOAD_DIR: string = path.join('/tmp');
 export const UPLOAD_DIR: string = path.join(__dirname, 'upload');

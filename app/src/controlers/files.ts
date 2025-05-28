@@ -7,7 +7,7 @@ import {
   ISvgDbData,
   ISvgDbDataCollection,
 } from '../interfaces/interface_controlers.ts';
-import { updateAvatar } from '../services/avatar.ts';
+// import { updateAvatar } from '../services/avatar.ts';
 import { addIcons, getAllIcons, getIconById } from '../services/icon.ts';
 import { fromBinaryToSvg, rmTmpFile } from '../utils/svgTobinaryConverter.ts';
 
@@ -17,13 +17,14 @@ export const uploadAvatar: IController = async (req, res) => {
   const name = avatar?.filename;
   if (!name) throw new BadRequest();
 
-  const data = await updateAvatar(name);
-  if (!data) throw new InternalServerError();
+  // const data = await updateAvatar(name);
+  // if (!data) throw new InternalServerError();
 
   res.status(HttpCode.CREATED).json({
     status: HttpCode.CREATED,
     data: {
-      url: data.avatar,
+      // url: data.avatar,
+      url: name,
     },
   });
   return;

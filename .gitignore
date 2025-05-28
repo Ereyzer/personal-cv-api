@@ -136,3 +136,4 @@ package-lock.json
 .vscode
 tmp
 .vercel
+google-cloud-credential.json
