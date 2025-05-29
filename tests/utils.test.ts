@@ -46,7 +46,7 @@ describe('hooks', function () {
 });
 
 describe('pagination data', () => {
-  test('sacsses', () => {
+  test('success', () => {
     console.log(
       JSON.stringify({
         page: 2,

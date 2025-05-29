@@ -62,6 +62,8 @@ const router = Router();
 //     });
 // });
 router.get('/', async (req: Request, res: Response) => {
+  console.log('Hello Admin');
+
   res.send('Hello admin');
 });
 

@@ -1,5 +1,3 @@
-import 'multer';
-
 import { startServer } from './src/server.ts';
 import { initMongoDB } from './src/db/initMongoDB.ts';
 import { createDiirIfNotExist } from './src/utils/createDirIfNotExist.ts';

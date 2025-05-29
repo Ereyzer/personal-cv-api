@@ -13,6 +13,10 @@ export const varsEnv = {
   NODE_ENV: 'NODE_ENV',
   MONGODB_HOST: 'MONGODB_HOST',
   MONGODB_URL: 'MONGODB_URL',
+  CLOUDINARY_URL: 'CLOUDINARY_URL',
+  CLOUDINARY_SECRET: 'CLOUDINARY_SECRET',
+  CLOUDINARY_KEY: 'CLOUDINARY_KEY',
+  CLOUDINARY_NAME: 'CLOUDINARY_NAME',
 };
 
 export enum HttpCode {
@@ -39,3 +43,8 @@ export const __dirname: string = path.dirname(process.argv[1]);
 
 export const TMP_UPLOAD_DIR: string = path.join('/tmp');
 export const UPLOAD_DIR: string = path.join(__dirname, 'upload');
+
+export const CLOUDINARY_URL = getEnvVar(varsEnv.CLOUDINARY_URL);
+export const CLOUDINARY_SECRET = getEnvVar(varsEnv.CLOUDINARY_SECRET);
+export const CLOUDINARY_KEY = getEnvVar(varsEnv.CLOUDINARY_KEY);
+export const CLOUDINARY_NAME = getEnvVar(varsEnv.CLOUDINARY_NAME);

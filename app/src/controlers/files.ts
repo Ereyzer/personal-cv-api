@@ -7,24 +7,26 @@ import {
   ISvgDbData,
   ISvgDbDataCollection,
 } from '../interfaces/interface_controlers.ts';
-// import { updateAvatar } from '../services/avatar.ts';
+import { updateAvatar } from '../services/avatar.ts';
 import { addIcons, getAllIcons, getIconById } from '../services/icon.ts';
 import { fromBinaryToSvg, rmTmpFile } from '../utils/svgTobinaryConverter.ts';
+import { saveAvatarToCloudinary } from '../utils/saveFileToCloudinary.ts';
 
 export const uploadAvatar: IController = async (req, res) => {
   const avatar: Express.Multer.File | undefined = req.file;
 
-  const name = avatar?.filename;
-  if (!name) throw new BadRequest();
+  // let name = avatar?.filename;
+  if (!avatar) throw new BadRequest();
+  const imgLink = await saveAvatarToCloudinary(avatar);
+  // const { name, webViewLink } = await uploadFileToDrive(avatar);
 
-  // const data = await updateAvatar(name);
-  // if (!data) throw new InternalServerError();
+  const data = await updateAvatar(imgLink);
+  if (!data) throw new InternalServerError();
 
   res.status(HttpCode.CREATED).json({
     status: HttpCode.CREATED,
     data: {
-      // url: data.avatar,
-      url: name,
+      url: imgLink,
     },
   });
   return;
