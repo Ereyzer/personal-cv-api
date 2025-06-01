@@ -1,4 +1,4 @@
-import { Router, Request, Response } from 'express';
+import express, { Router, Request, Response } from 'express';
 // import { Router } from 'express';
 
 import {
@@ -61,9 +61,9 @@ const router = Router();
 //         message: 'hello'
 //     });
 // });
-router.get('/', async (req: Request, res: Response) => {
+router.use('/', ctrlWrapper(express.static('/static')));
+router.get('/test', async (req: Request, res: Response) => {
   console.log('Hello Admin');
-
   res.send('Hello admin');
 });
 

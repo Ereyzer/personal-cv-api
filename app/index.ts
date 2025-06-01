@@ -5,6 +5,7 @@ import {
   TMP_UPLOAD_DIR,
   // UPLOAD_DIR
 } from './src/config/constants.ts';
+import { createSuperUser } from './src/config/createSuperUser.ts';
 
 const bootstrap = async () => {
   // conect  to DB
@@ -12,6 +13,7 @@ const bootstrap = async () => {
   // // create dirs for upload files
   await createDiirIfNotExist(TMP_UPLOAD_DIR);
   // await createDiirIfNotExist(UPLOAD_DIR);
+  await createSuperUser();
   // // start server
   return startServer();
 };

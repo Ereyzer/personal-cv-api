@@ -3,7 +3,8 @@
 import express from 'express';
 import swaggerUi from 'swagger-ui-express';
 
-import AdminRouter from './routers/admin.ts';
+import router from './routers/index.ts';
+
 import {
   // __dirname,
   HOST,
@@ -38,8 +39,8 @@ export const startServer = () => {
     res.send(message);
   });
 
-  // app.use('/uploads', ctrlWrapper(express.static(UPLOAD_DIR)));
-  app.use('/admin', AdminRouter);
+  // app.use('/admin/page', ctrlWrapper(express.static('/static')));
+  app.use(router);
   // SWAGGER
 
   // app.use(
