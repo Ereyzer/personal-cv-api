@@ -1,5 +1,4 @@
-import express, { Router, Request, Response } from 'express';
-// import { Router } from 'express';
+import { Router, Request, Response } from 'express';
 
 import {
   getAllInfoController,
@@ -50,20 +49,23 @@ import {
 } from '../controlers/hardSkills.ts';
 import { IdValidationSchema } from '../validation/schemas.ts';
 
+import { sendAuthMAil } from '../utils/sendMail.ts';
+
 const router = Router();
 
 // TODO: admin page
 // router.get('', async (_req: Request, res: Response) => {
-//     res.status(HttpCode.OK).sendFile(path.join(__dirname, 'src/static/html/index.html'));
+//     res.status(HttpCode.OK).sendFile(path.join(DIR_NAME, 'src/static/html/index.html'));
 // });
 // router.get('', async (_req: Request, res: Response) => {
 //     res.status(HttpCode.OK).json({
 //         message: 'hello'
 //     });
 // });
-router.use('/', ctrlWrapper(express.static('/static')));
+
 router.get('/test', async (req: Request, res: Response) => {
   console.log('Hello Admin');
+  await sendAuthMAil('ivanlaver142@gmail.com');
   res.send('Hello admin');
 });
 

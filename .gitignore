@@ -133,6 +133,7 @@ dist
 
 # notes for develop
 notes.txt
+note.txt
 package-lock.json
 .vscode
 tmp

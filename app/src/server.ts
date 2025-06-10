@@ -6,7 +6,7 @@ import swaggerUi from 'swagger-ui-express';
 import router from './routers/index.ts';
 
 import {
-  // __dirname,
+  // DIR_NAME,
   HOST,
   // NODE_ENV,
   PORT,
@@ -19,7 +19,7 @@ import { NotFoundError } from './config/err-const.ts';
 import swaggerFile from './swagger/swagger.ts';
 
 // const swaggerDocument = JSON.parse(
-//   fs.readFileSync(path.join(__dirname, 'swagger/swagger.json'), 'utf8')
+//   fs.readFileSync(path.join(DIR_NAME, 'swagger/swagger.json'), 'utf8')
 // );
 
 const swaggerDocument = JSON.parse(swaggerFile);
@@ -45,11 +45,11 @@ export const startServer = () => {
 
   // app.use(
   //   (req, res, next) => {
-  //     console.log(__dirname);
+  //     console.log(DIR_NAME);
 
   //     next();
   //   },
-  //   express.static(path.join(__dirname, 'static'))
+  //   express.static(path.join(DIR_NAME, 'static'))
   // );
   app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
   // WRONG url

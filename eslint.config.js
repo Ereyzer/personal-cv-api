@@ -21,6 +21,11 @@ export default [
 
   },
   {
-    languageOptions: { globals: globals.node },
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.node
+      }
+    },
   },
 ];
