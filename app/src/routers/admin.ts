@@ -49,7 +49,7 @@ import {
 } from '../controlers/hardSkills.ts';
 import { IdValidationSchema } from '../validation/schemas.ts';
 
-import { sendAuthMAil } from '../utils/sendMail.ts';
+import { readJWT } from '../utils/createJWT.ts';
 
 const router = Router();
 
@@ -65,7 +65,11 @@ const router = Router();
 
 router.get('/test', async (req: Request, res: Response) => {
   console.log('Hello Admin');
-  await sendAuthMAil('ivanlaver142@gmail.com');
+  // await sendAuthMAil('ivanlaver142@gmail.com');
+  readJWT('ddd');
+  readJWT(
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2ODNiZjcwNTJlYmQ3ODc3ZWRlOTg3NmYiLCJlbWFpbCI6Iml2YW5sYXZlcjE0MkBnbWFpbC5jb20iLCJkYXRlIjoxNzQ5NjI5NTI5NDI2LCJpYXQiOjE3NDk2Mjk1Mjl9.eAl8A40PGxvgwFwRtYdv37DJQbQD2AcNQI_S0fkeFWY'
+  );
   res.send('Hello admin');
 });
 

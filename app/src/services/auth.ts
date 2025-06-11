@@ -13,3 +13,10 @@ export const registerUser = async (user: {
 export const getUser = async (email: string): Promise<mongoose.Document | null> => {
   return await UserCollection.findOne({ email });
 };
+
+export const updatePassword = async (
+  _id: string,
+  password: string
+): Promise<mongoose.Document | null> => {
+  return await UserCollection.findByIdAndUpdate(_id, { password }, { new: true });
+};

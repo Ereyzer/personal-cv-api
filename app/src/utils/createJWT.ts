@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-import { NotFoundError } from '../config/err-const.ts';
+import { NotFoundError, UnauthorizedError } from '../config/err-const.ts';
 import { getUser } from '../services/auth.ts';
 import { JWT_SECRET } from '../config/constants.ts';
 
@@ -21,4 +21,17 @@ export const createJWT = async (email: string): Promise<string> => {
   console.log(token);
 
   return token;
+};
+
+export const readJWT = <R = { sub: string; email: string; date: number; iat: number }>(
+  token: string
+): R => {
+  try {
+    const entries = jwt.verify(token, JWT_SECRET);
+    return entries as unknown as R;
+  } catch (error) {
+    console.log(error);
+
+    throw new UnauthorizedError((error as unknown as Error).message);
+  }
 };

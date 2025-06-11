@@ -7,3 +7,7 @@ export const requesrResetEmailShema = Joi.object({
 export const tokenValidSchema = Joi.object({
   token: Joi.string().required(),
 });
+
+export const newPasswordBody = Joi.object({
+  password: Joi.string().min(8).max(30).required(),
+});
