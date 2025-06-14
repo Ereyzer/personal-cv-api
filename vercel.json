@@ -1,4 +1,10 @@
 {
   "version": 2,
-  "rewrites": [{ "source": "/(.*)", "destination": "/api" }]
+  "redirects": [{ "source": "/admin", "destination": "/static" }],
+  "rewrites": [{ "source": "/(.*)", "destination": "/api" }],
+  "functions": {
+    "api/index.js": {
+      "includeFiles": "./app/src/templates/*.html"
+    }
+  }
 }

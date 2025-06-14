@@ -1,11 +1,13 @@
 // import fs from 'fs';
 // import path from 'path';
 import express from 'express';
+import cookieParser from 'cookie-parser';
 import swaggerUi from 'swagger-ui-express';
 
-import AdminRouter from './routers/admin.ts';
+import router from './routers/index.ts';
+
 import {
-  // __dirname,
+  // DIR_NAME,
   HOST,
   // NODE_ENV,
   PORT,
@@ -18,7 +20,7 @@ import { NotFoundError } from './config/err-const.ts';
 import swaggerFile from './swagger/swagger.ts';
 
 // const swaggerDocument = JSON.parse(
-//   fs.readFileSync(path.join(__dirname, 'swagger/swagger.json'), 'utf8')
+//   fs.readFileSync(path.join(DIR_NAME, 'swagger/swagger.json'), 'utf8')
 // );
 
 const swaggerDocument = JSON.parse(swaggerFile);
@@ -27,6 +29,7 @@ export const startServer = () => {
   const app = express();
   app.use(express.json());
   //   // TODO: CORS !!!!!
+  app.use(cookieParser());
   //   // TODO: some logs???
 
   app.get('/hello', async (_req, res) => {
@@ -38,17 +41,17 @@ export const startServer = () => {
     res.send(message);
   });
 
-  // app.use('/uploads', ctrlWrapper(express.static(UPLOAD_DIR)));
-  app.use('/admin', AdminRouter);
+  // app.use('/admin/page', ctrlWrapper(express.static('/static')));
+  app.use(router);
   // SWAGGER
 
   // app.use(
   //   (req, res, next) => {
-  //     console.log(__dirname);
+  //     console.log(DIR_NAME);
 
   //     next();
   //   },
-  //   express.static(path.join(__dirname, 'static'))
+  //   express.static(path.join(DIR_NAME, 'static'))
   // );
   app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
   // WRONG url
