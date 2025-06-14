@@ -18,7 +18,6 @@ export const createJWT = async (email: string): Promise<string> => {
     },
     JWT_SECRET
   );
-  console.log(token);
 
   return token;
 };

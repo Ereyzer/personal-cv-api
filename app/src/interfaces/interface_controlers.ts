@@ -101,3 +101,7 @@ export interface IHardSkill {
   image: mongoose.Schema.Types.String | null;
   title: mongoose.Schema.Types.String;
 }
+
+// export interface IRequestWithUser extends Request {
+//   user: mongoose.Document;
+// }

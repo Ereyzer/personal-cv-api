@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 import { UserCollection } from '../db/models/user.ts';
+import { closeSession } from './session.ts';
 
 export const registerUser = async (user: {
   name?: string;
@@ -19,4 +20,8 @@ export const updatePassword = async (
   password: string
 ): Promise<mongoose.Document | null> => {
   return await UserCollection.findByIdAndUpdate(_id, { password }, { new: true });
+};
+
+export const logoutUser = async (sessionId: string) => {
+  await closeSession(sessionId);
 };

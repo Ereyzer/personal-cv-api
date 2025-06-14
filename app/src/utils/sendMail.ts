@@ -34,7 +34,6 @@ export const sendAuthMAil = async (superUserEmail: string, name: string = 'Delul
     subject: 'Nodemailer test',
     html,
   };
-  console.log(emailOptionst);
 
   await transporter
     .sendMail(emailOptionst)

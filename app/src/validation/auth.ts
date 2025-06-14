@@ -11,3 +11,8 @@ export const tokenValidSchema = Joi.object({
 export const newPasswordBody = Joi.object({
   password: Joi.string().min(8).max(30).required(),
 });
+
+export const loginBodySchema = Joi.object({
+  email: Joi.string().email().required(),
+  password: Joi.string().required(),
+});

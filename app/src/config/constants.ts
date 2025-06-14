@@ -23,6 +23,7 @@ export const varsEnv = {
   AUTH_EMAIL_PASSWORD: 'AUTH_EMAIL_PASSWORD',
   JWT_SECRET: 'JWT_SECRET',
   APP_DOMAIN: 'APP_DOMAIN',
+  SALT_ROUNDS_HASH: 'SALT_ROUNDS_HASH',
 };
 
 export enum HttpCode {
@@ -69,3 +70,7 @@ export const TEMPLATES_DIR =
 
 export const JWT_SECRET = getEnvVar(varsEnv.JWT_SECRET);
 export const APP_DOMAIN = getEnvVar(varsEnv.APP_DOMAIN, 'http://localhost:3000/');
+export const SALT_ROUNDS_HASH = getEnvVar(varsEnv.SALT_ROUNDS_HASH, '2');
+
+export const FIFTEEN_MINUTES = 15 * 60 * 1000;
+export const ONE_DAY = 24 * 60 * 60 * 1000;

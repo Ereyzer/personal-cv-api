@@ -60,7 +60,7 @@
 
     const editEvent = (event) => {
         if (event.target.nodeName !== 'INPUT') return;
-        if (!inputsCheck(formSelector.children[0].value, formSelector.children[1].value)) {
+        if (!inputsCheck(formSelector.children[1].value, formSelector.children[2].value)) {
             formSelector.removeEventListener('submit', formEvent);
             return
         };
