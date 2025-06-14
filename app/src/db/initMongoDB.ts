@@ -8,6 +8,7 @@ export const initMongoDB = async () => {
     if (NODE_ENV === 'dev') {
       console.log('Mongo connection successfully established!');
     }
+    console.log('Mongo connection successfully established!');
   } catch (e) {
     console.log('Error while setting up mongo connection', e);
     throw e;

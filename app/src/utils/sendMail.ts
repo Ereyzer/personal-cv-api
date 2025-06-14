@@ -1,0 +1,42 @@
+import handlebars from 'handlebars';
+import path from 'node:path';
+import fs from 'node:fs/promises';
+
+import { APP_DOMAIN, AUTH_EMAIL, AUTH_EMAIL_PASSWORD, TEMPLATES_DIR } from '../config/constants.ts';
+import nodemailer from 'nodemailer';
+import { createJWT } from './createJWT.ts';
+
+const connfigNodeMailer = {
+  host: 'smtp.meta.ua',
+  port: 465,
+  secure: true,
+  auth: {
+    user: AUTH_EMAIL,
+    pass: AUTH_EMAIL_PASSWORD,
+  },
+};
+
+export const sendAuthMAil = async (superUserEmail: string, name: string = 'Delulu') => {
+  const token = await createJWT(superUserEmail);
+  // `${APP_DOMAIN}create-password/${token}`
+  const link = path.join(APP_DOMAIN, 'auth', 'create-password', token);
+
+  const createPasswordTemplatePath = path.join(TEMPLATES_DIR, 'create-password-email.html');
+  const templateSource = (await fs.readFile(createPasswordTemplatePath)).toString();
+  const template = handlebars.compile(templateSource);
+  const html = template({ name, link });
+
+  const transporter = nodemailer.createTransport(connfigNodeMailer);
+
+  const emailOptionst = {
+    from: AUTH_EMAIL,
+    to: superUserEmail,
+    subject: 'Nodemailer test',
+    html,
+  };
+
+  await transporter
+    .sendMail(emailOptionst)
+    .then(info => console.log(info))
+    .catch(err => console.log(err));
+};

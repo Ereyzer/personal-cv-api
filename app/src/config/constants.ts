@@ -13,6 +13,17 @@ export const varsEnv = {
   NODE_ENV: 'NODE_ENV',
   MONGODB_HOST: 'MONGODB_HOST',
   MONGODB_URL: 'MONGODB_URL',
+  CLOUDINARY_URL: 'CLOUDINARY_URL',
+  CLOUDINARY_SECRET: 'CLOUDINARY_SECRET',
+  CLOUDINARY_KEY: 'CLOUDINARY_KEY',
+  CLOUDINARY_NAME: 'CLOUDINARY_NAME',
+  SUPERUSER_EMAIL: 'SUPERUSER_EMAIL',
+  SUPERUSER_PASSWORD: 'SUPERUSER_PASSWORD',
+  AUTH_EMAIl: 'AUTH_EMAIL',
+  AUTH_EMAIL_PASSWORD: 'AUTH_EMAIL_PASSWORD',
+  JWT_SECRET: 'JWT_SECRET',
+  APP_DOMAIN: 'APP_DOMAIN',
+  SALT_ROUNDS_HASH: 'SALT_ROUNDS_HASH',
 };
 
 export enum HttpCode {
@@ -35,7 +46,31 @@ export const NODE_ENV: string = getEnvVar(varsEnv.NODE_ENV, 'prod');
 export const PORT: number = Number(getEnvVar(varsEnv.APP_PORT, '3001'));
 export const HOST: string = getEnvVar(varsEnv.APP_HOST, 'localhost');
 export const MONGO_URL = getEnvVar(varsEnv.MONGODB_URL);
-export const __dirname: string = path.dirname(process.argv[1]);
+export const DIR_NAME: string = path.dirname(process.cwd());
 
-export const TMP_UPLOAD_DIR: string = path.join(__dirname, 'tmp');
-export const UPLOAD_DIR: string = path.join(__dirname, 'upload');
+export const TMP_UPLOAD_DIR: string = path.join(DIR_NAME, 'tmp');
+export const UPLOAD_DIR: string = path.join(DIR_NAME, 'upload');
+
+export const CLOUDINARY_URL = getEnvVar(varsEnv.CLOUDINARY_URL);
+export const CLOUDINARY_SECRET = getEnvVar(varsEnv.CLOUDINARY_SECRET);
+export const CLOUDINARY_KEY = getEnvVar(varsEnv.CLOUDINARY_KEY);
+export const CLOUDINARY_NAME = getEnvVar(varsEnv.CLOUDINARY_NAME);
+
+export const SUPERUSER_EMAIL = getEnvVar(varsEnv.SUPERUSER_EMAIL);
+export const SUPERUSER_PASSWORD = getEnvVar(varsEnv.SUPERUSER_PASSWORD);
+
+export const AUTH_EMAIL = getEnvVar(varsEnv.AUTH_EMAIl);
+export const AUTH_EMAIL_PASSWORD = getEnvVar(varsEnv.AUTH_EMAIL_PASSWORD);
+
+// TODO: find another way to use files after build
+export const TEMPLATES_DIR =
+  NODE_ENV === 'dev'
+    ? path.join(DIR_NAME, 'app', 'src', 'templates')
+    : path.join(DIR_NAME, 'task', 'app', 'src', 'templates');
+
+export const JWT_SECRET = getEnvVar(varsEnv.JWT_SECRET);
+export const APP_DOMAIN = getEnvVar(varsEnv.APP_DOMAIN, 'http://localhost:3000/');
+export const SALT_ROUNDS_HASH = getEnvVar(varsEnv.SALT_ROUNDS_HASH, '2');
+
+export const FIFTEEN_MINUTES = 15 * 60 * 1000;
+export const ONE_DAY = 24 * 60 * 60 * 1000;
