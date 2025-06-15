@@ -50,6 +50,11 @@ export default JSON.stringify({
     },
     '/admin/info/{field}': {
       patch: {
+        security: [
+          {
+            BearerAuth: [],
+          },
+        ],
         summary: 'update simple filds in info Doc',
         tags: ['admin'],
         parameters: [
@@ -98,11 +103,26 @@ export default JSON.stringify({
               },
             },
           },
+          '401': {
+            description: 'UNAUTHORIZED',
+            content: {
+              'application/json': {
+                schema: {
+                  $ref: '#/components/schemas/unauthorizedError',
+                },
+              },
+            },
+          },
         },
       },
     },
     '/admin/info/{language}/{field}': {
       patch: {
+        security: [
+          {
+            BearerAuth: [],
+          },
+        ],
         description: 'update multilanguges fields',
         tags: ['admin'],
         parameters: [
@@ -165,6 +185,11 @@ export default JSON.stringify({
     },
     '/admin/files/avatar': {
       post: {
+        security: [
+          {
+            BearerAuth: [],
+          },
+        ],
         sumarry: 'update image for avatar',
         tags: ['admin'],
         requestBody: {
@@ -221,6 +246,11 @@ export default JSON.stringify({
     },
     '/admin/files/icons': {
       post: {
+        security: [
+          {
+            BearerAuth: [],
+          },
+        ],
         sumarry: 'add svg icons',
         tags: ['admin'],
         requestBody: {
@@ -391,6 +421,11 @@ export default JSON.stringify({
     },
     '/admin/softSkills': {
       post: {
+        security: [
+          {
+            BearerAuth: [],
+          },
+        ],
         summary: 'upsert soft skill',
         description: 'upsert one soft skill',
         tags: ['admin'],
@@ -669,6 +704,11 @@ export default JSON.stringify({
         },
       },
       post: {
+        security: [
+          {
+            BearerAuth: [],
+          },
+        ],
         summary: 'add new Hard Skill',
         tags: ['admin'],
         requestBody: {
@@ -726,6 +766,11 @@ export default JSON.stringify({
     },
     '/admin/hardSkills/{_id}': {
       put: {
+        security: [
+          {
+            BearerAuth: [],
+          },
+        ],
         summary: 'update Hard Skill',
         tags: ['admin'],
         parameters: [
@@ -792,6 +837,12 @@ export default JSON.stringify({
     },
   },
   components: {
+    securitySchemes: {
+      BearerAuth: {
+        type: 'http',
+        scheme: 'bearer',
+      },
+    },
     variables: {
       def_en_text: 'some text',
       def_uk_text: 'деякий текст',
@@ -1011,6 +1062,13 @@ export default JSON.stringify({
             required: false,
             example: 'http://some_link',
           },
+        },
+      },
+      unauthorizedError: {
+        example: {
+          status: 401,
+          name: 'UNAUTHORIZED',
+          message: 'somsing wrong with authorization',
         },
       },
     },
