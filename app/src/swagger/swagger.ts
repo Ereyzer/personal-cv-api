@@ -18,6 +18,10 @@ export default JSON.stringify({
       name: 'admin',
       description: 'everythink in admin panel',
     },
+    {
+      name: 'auth',
+      description: 'uth endpoints',
+    },
   ],
   paths: {
     '/admin/info': {
@@ -833,6 +837,87 @@ export default JSON.stringify({
             },
           },
         },
+      },
+    },
+    // '/auth/test/register': {
+    //   post: {
+    //     summari: 'testing regestration will be deleted after around 24 hours',
+    //     description: 'register test user',
+    //     tags: ['auth'],
+    //     requestBody: {
+    //       content: {
+    //         'application/json': {
+    //           schema: {
+    //             type: 'object',
+    //             properties: {
+    //               name: {
+    //                 type: 'string',
+    //                 example: 'Delulu',
+    //                 required: false,
+    //               },
+    //               password: {
+    //                 type: 'string',
+    //                 example: '12345678',
+    //                 required: true,
+    //               },
+    //               email: {
+    //                 type: 'string',
+    //                 example: 'newEmail@gmail.com',
+    //                 required: true,
+    //               },
+    //             },
+    //           },
+    //         },
+    //       },
+    //     },
+    //     responses: {
+    //       // TODO:
+    //     },
+    //   },
+    // },
+    '/auth/login': {
+      post: {
+        tags: ['auth'],
+        requestBody: {
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  password: {
+                    type: 'string',
+                    example: '12345678',
+                    required: true,
+                  },
+                  email: {
+                    type: 'string',
+                    example: 'newEmail@gmail.com',
+                    required: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+        responses: {},
+      },
+    },
+    '/auth/logout': {
+      post: {
+        tags: ['auth'],
+        security: [
+          {
+            BearerAuth: [],
+          },
+        ],
+        responses: {},
+      },
+    },
+    '/auth/refresh': {
+      post: {
+        tags: ['auth'],
+        security: [],
+        responses: {},
       },
     },
   },

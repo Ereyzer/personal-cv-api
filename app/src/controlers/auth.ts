@@ -4,7 +4,7 @@ import handlebars from 'handlebars';
 import { IController } from '../interfaces/interface_controlers.ts';
 import { HttpCode, TEMPLATES_DIR } from '../config/constants.ts';
 import { readJWT } from '../utils/createJWT.ts';
-import { getUser, logoutUser, updatePassword } from '../services/auth.ts';
+import { getUser, logoutUser, registerUser, updatePassword } from '../services/auth.ts';
 import { crypter } from '../utils/crypter.ts';
 import { UnauthorizedError } from '../config/err-const.ts';
 import { createCoupleOfTokens, refreshUserSession } from '../services/session.ts';
@@ -112,5 +112,19 @@ export const refreshUserSessionCtr: IController = async (req, res) => {
     status: 200,
     message: 'Successfully refreshed a session!',
     data: { accessToken },
+  });
+};
+
+export const registerUserCtr: IController = async (req, res) => {
+  const { email, password, name } = req.body;
+
+  const user = await registerUser({ email, password, name });
+
+  res.status(HttpCode.CREATED).json({
+    status: HttpCode.CREATED,
+    message: 'Created new user ' + name,
+    data: {
+      user,
+    },
   });
 };
