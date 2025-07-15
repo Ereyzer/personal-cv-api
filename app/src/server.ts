@@ -1,8 +1,7 @@
-// import fs from 'fs';
-// import path from 'path';
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import swaggerUi from 'swagger-ui-express';
+import cors from 'cors';
 
 import router from './routers/index.ts';
 
@@ -29,6 +28,7 @@ export const startServer = () => {
   const app = express();
   app.use(express.json());
   //   // TODO: CORS !!!!!
+  app.use(cors());
   app.use(cookieParser());
   //   // TODO: some logs???
 
