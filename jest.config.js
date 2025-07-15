@@ -11,4 +11,7 @@ export default {
       tsconfig: './tsconfig.json',
     },
   },
+  moduleNameMapper: {
+    '^(\\.{1,2}/.*)\\.js$': '$1', // потрібен, щоб уникнути помилок з імпортами без .js
+  },
 };
