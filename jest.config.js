@@ -3,6 +3,12 @@ export default {
   preset: 'ts-jest',
   testEnvironment: "node",
   transform: {
-    "^.+.tsx?$": ["ts-jest",{}],
+    "^.+.tsx?$": ["ts-jest",{ useESM: true }],
+  },
+  globals: {
+    'ts-jest': {
+      useESM: true,
+      tsconfig: './tsconfig.json',
+    },
   },
 };
