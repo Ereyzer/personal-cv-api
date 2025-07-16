@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { ctrlWrapper } from '../utils/ctrlWrapper.ts';
 import {
+  checkIsUserOnline,
   createPasswordCtr,
   loginUserCtr,
   logoutUserCtr,
@@ -34,6 +35,8 @@ router.patch(
 );
 
 router.post('/login', validateBody(loginBodySchema), ctrlWrapper(loginUserCtr));
+
+router.get('/isuser', authenticate, ctrlWrapper(checkIsUserOnline));
 
 router.post('/logout', authenticate, ctrlWrapper(logoutUserCtr));
 

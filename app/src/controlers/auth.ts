@@ -128,3 +128,7 @@ export const registerUserCtr: IController = async (req, res) => {
     },
   });
 };
+
+export const checkIsUserOnline: IController = async (req, res) => {
+  res.status(HttpCode.OK).send();
+};
