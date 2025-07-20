@@ -6,6 +6,7 @@ import cors from 'cors';
 import router from './routers/index.ts';
 
 import {
+  ADMIN_DOMAIN,
   // DIR_NAME,
   HOST,
   // NODE_ENV,
@@ -28,7 +29,13 @@ export const startServer = () => {
   const app = express();
   app.use(express.json());
   //   // TODO: CORS !!!!!
-  app.use(cors());
+
+  app.use(
+    cors({
+      origin: ADMIN_DOMAIN,
+      credentials: true,
+    })
+  );
   app.use(cookieParser());
   //   // TODO: some logs???
 
