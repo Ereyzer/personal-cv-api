@@ -24,6 +24,7 @@ export const varsEnv = {
   JWT_SECRET: 'JWT_SECRET',
   APP_DOMAIN: 'APP_DOMAIN',
   SALT_ROUNDS_HASH: 'SALT_ROUNDS_HASH',
+  ADMIN_DOMAIN: 'ADMIN_DOMAIN',
 };
 
 export enum HttpCode {
@@ -41,7 +42,7 @@ export enum HttpCode {
   INTERNAL_SERVER_ERROR = 500,
 }
 
-export const NODE_ENV: string = getEnvVar(varsEnv.NODE_ENV, 'prod');
+export const NODE_ENV: string = getEnvVar(varsEnv.NODE_ENV, 'development');
 
 export const PORT: number = Number(getEnvVar(varsEnv.APP_PORT, '3001'));
 export const HOST: string = getEnvVar(varsEnv.APP_HOST, 'localhost');
@@ -70,6 +71,7 @@ export const TEMPLATES_DIR =
 
 export const JWT_SECRET = getEnvVar(varsEnv.JWT_SECRET);
 export const APP_DOMAIN = getEnvVar(varsEnv.APP_DOMAIN, 'http://localhost:3000/');
+export const ADMIN_DOMAIN = getEnvVar(varsEnv.ADMIN_DOMAIN, 'http://localhost:5173');
 export const SALT_ROUNDS_HASH = getEnvVar(varsEnv.SALT_ROUNDS_HASH, '2');
 
 export const FIFTEEN_MINUTES = 15 * 60 * 1000;
