@@ -5,6 +5,15 @@
     "rewriteRelativeImportExtensions": false /* Rewrite '.ts', '.tsx', '.mts', and '.cts' file extensions in relative import paths to their JavaScript equivalent in output files. */,
     /* Emit */
     "noEmit": true /* Disable emitting files from a compilation. */,
-    "removeComments": false /* Disable emitting comments. */
-  }
+    "removeComments": false /* Disable emitting comments. */,
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "allowJs": true,
+    "skipLibCheck": true
+  },
+  "include": ["app", "tests"]
 }

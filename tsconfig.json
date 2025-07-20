@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig to read more about this file */
-
+    // "module": "ES2022",?
+    // "moduleResolution": "node",
+    // "sourceMap": true,?
     /* Projects */
     // "incremental": true,                              /* Save .tsbuildinfo files to allow for incremental compilation of projects. */
     // "composite": true,                                /* Enable constraints that allow a TypeScript project to be used with project references. */
@@ -35,6 +37,7 @@
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
     // "typeRoots": [],                                  /* Specify multiple folders that act like './node_modules/@types'. */
     "types": [
+      "jest",
       "node"
     ] /* Specify type package names to be included without being referenced in a source file. */,
     // "allowUmdGlobalAccess": true,                     /* Allow accessing UMD globals from modules. */
@@ -115,6 +118,6 @@
   "ts-node": {
     "swc": true
   },
-  "include": ["api/*.ts", "./app/src/**/*.ts", "api/index.js", "app/index.ts"],
+  "include": ["api/*.ts", "./app/src/**/*.ts", "api/index.js", "app/index.ts", "tests"],
   "exclude": ["node_modules", "**/*.test.ts"]
 }
