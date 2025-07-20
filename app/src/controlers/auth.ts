@@ -2,13 +2,13 @@ import path from 'path';
 import fs from 'node:fs/promises';
 import handlebars from 'handlebars';
 import { IController } from '../interfaces/interface_controlers.ts';
-import { HttpCode, TEMPLATES_DIR } from '../config/constants.ts';
+import { HttpCode, NODE_ENV, TEMPLATES_DIR } from '../config/constants.ts';
 import { readJWT } from '../utils/createJWT.ts';
 import { getUser, logoutUser, registerUser, updatePassword } from '../services/auth.ts';
 import { crypter } from '../utils/crypter.ts';
 import { UnauthorizedError } from '../config/err-const.ts';
 import { createCoupleOfTokens, refreshUserSession } from '../services/session.ts';
-import { Response } from 'express';
+import { CookieOptions, Response } from 'express';
 
 export const createPasswordCtr: IController = async (req, res) => {
   console.log('create password');
@@ -51,13 +51,20 @@ const setupCookieSession = (
   }: { _id: string; refreshToken: string; refreshTokenValidUntil: Date }
 ): void => {
   if (!res?.cookie) return;
-  res.cookie('refreshToken', refreshToken, {
+  console.log(_id);
+  const cookieConfig: CookieOptions = {
     httpOnly: true,
+    secure: NODE_ENV === 'production',
+    sameSite: NODE_ENV === 'production' ? 'none' : 'lax',
+  };
+
+  res.cookie('refreshToken', refreshToken, {
     expires: refreshTokenValidUntil,
+    ...cookieConfig,
   });
   res.cookie('sessionId', _id, {
-    httpOnly: true,
     expires: refreshTokenValidUntil,
+    ...cookieConfig,
   });
 };
 
@@ -81,6 +88,7 @@ export const loginUserCtr: IController = async (req, res) => {
     refreshTokenValidUntil: Date;
   };
   setupCookieSession(res, { _id, refreshToken, refreshTokenValidUntil });
+  // console.log(res);
 
   res.status(HttpCode.OK).json({
     status: 200,
@@ -90,17 +98,28 @@ export const loginUserCtr: IController = async (req, res) => {
 };
 
 export const logoutUserCtr: IController = async (req, res) => {
+  console.log('test logout');
+  // console.log('coocie', req);
+
   const { sessionId } = req.cookies;
+  console.log(sessionId);
+
   if (sessionId) {
     await logoutUser(sessionId);
   }
   res.clearCookie('sessionId');
   res.clearCookie('refreshToken');
+  // res.setHeader('Access-Control-Allow-Credentials', 'true');
+  // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
   res.status(HttpCode.NO_CONTENT).send();
 };
 
 export const refreshUserSessionCtr: IController = async (req, res) => {
+  console.log('test');
+
   const { sessionId, refreshToken: oldToken } = req.cookies;
+  console.log(sessionId);
+  console.log(oldToken);
   const session = await refreshUserSession(sessionId, oldToken);
 
   if (!session) throw new UnauthorizedError('can not made new session');
