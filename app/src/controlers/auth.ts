@@ -2,7 +2,7 @@ import path from 'path';
 import fs from 'node:fs/promises';
 import handlebars from 'handlebars';
 import { IController } from '../interfaces/interface_controlers.ts';
-import { HttpCode, NODE_ENV, TEMPLATES_DIR } from '../config/constants.ts';
+import { ADMIN_DOMAIN, HttpCode, NODE_ENV, TEMPLATES_DIR } from '../config/constants.ts';
 import { readJWT } from '../utils/createJWT.ts';
 import { getUser, logoutUser, registerUser, updatePassword } from '../services/auth.ts';
 import { crypter } from '../utils/crypter.ts';
@@ -37,7 +37,7 @@ export const updatePasswordCtr: IController = async (req, res) => {
   const templateSource = (await fs.readFile(createTemplatePath)).toString();
   const template = handlebars.compile(templateSource);
   // TODO: create link on sign in page
-  const html = template(!data ? {} : { name: data.name, link: '#' });
+  const html = template(!data ? {} : { name: data.name, link: ADMIN_DOMAIN + '/login' });
 
   res.status(!data ? HttpCode.BAD_REQUEST : HttpCode.CREATED).send(html);
 };
