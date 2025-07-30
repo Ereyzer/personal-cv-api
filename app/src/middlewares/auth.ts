@@ -5,6 +5,7 @@ import { checkAccessToken } from '../services/session.ts';
 
 export const authenticate: IController = async (req, res, next) => {
   const authHeader = req.get('Authorization');
+  console.log('try auth');
 
   if (!authHeader) {
     next(new UnauthorizedError('Please provide Authorization header'));
@@ -30,6 +31,8 @@ export const authenticate: IController = async (req, res, next) => {
     //   user: typeof user;
     // }
     // (req as unknown as IRequestWithUser).user = user;
+    console.log('good');
+
     next();
   } catch (error) {
     next(error);

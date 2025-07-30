@@ -14,6 +14,8 @@ export const updateAvatar = async (
   fileUrl: string,
   size: 'full' | 'cut'
 ): Promise<AvatarService> => {
+  console.log('update db');
+
   // const url: string = await saveFileToUploadDir(fileName);
   const oldData: AvatarDoc = await InfoCollection.findById(1, 'avatar');
   const avatarDoc: AvatarDoc = {
@@ -34,6 +36,7 @@ export const updateAvatar = async (
   }
 
   if (!oldData?.avatar) return data;
+  console.log('good');
 
   return data;
 };
