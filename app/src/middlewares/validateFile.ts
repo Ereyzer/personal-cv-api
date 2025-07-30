@@ -5,11 +5,16 @@ import { IVadatorMiddlware } from '../interfaces/interfaces_middlwares.ts';
 
 export const validateAvatar: IVadatorMiddlware = schema => async (req, res, next) => {
   const avatar = req.file;
+  console.log('try validate');
+
   try {
     await schema.validateAsync(avatar, { abortEarly: false });
+    console.log('good');
 
     next();
   } catch (error) {
+    console.log('bad');
+
     if (error instanceof Joi.ValidationError) {
       next(new UnprocessableEntityError(error.message));
     } else {
