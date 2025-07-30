@@ -7,11 +7,13 @@ type FileNameCallback = (error: Error | null, filename: string) => void;
 
 const storage = multer.diskStorage({
   destination: (req: Request, file: Express.Multer.File, cb: DestinationCallback): void => {
-    cb(null, TMP_UPLOAD_DIR);
+    const fackErr = new Error('didi o no');
+    cb(fackErr, TMP_UPLOAD_DIR);
   },
   filename: (req: Request, file: Express.Multer.File, cb: FileNameCallback): void => {
     const uniqueSuffix = Date.now();
-    cb(null, `${uniqueSuffix}_${file.originalname}`);
+    const fackErr = new Error('didi o no 2');
+    cb(fackErr, `${uniqueSuffix}_${file.originalname}`);
   },
 });
 
