@@ -16,6 +16,7 @@ import {
 import { validateBody } from '../middlewares/validateBody.ts';
 import { upload } from '../middlewares/multer.ts';
 import {
+  cutAvatar,
   getAllIconController,
   // getOneIconController,
   uploadAvatar,
@@ -93,6 +94,13 @@ router.post(
   upload.single('avatar'),
   validateAvatar(avatarValidSchema),
   ctrlWrapper(uploadAvatar)
+);
+router.post(
+  '/files/cutavatar',
+  authenticate,
+  upload.single('avatar'),
+  validateAvatar(avatarValidSchema),
+  ctrlWrapper(cutAvatar)
 );
 
 router.get('/info', ctrlWrapper(getAllInfoController));

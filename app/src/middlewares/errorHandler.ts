@@ -7,7 +7,7 @@ type HandlerFunc = (err: IError, req: Request, res: Response, next: NextFunction
 export const errorHandler: HandlerFunc = (err, _req, res, _next) => {
   const {
     name = 'INTERNAL SERVER ERROR',
-    message = 'Something went wrong',
+    message = err.message || 'Something went wrong',
     status = HttpCode.INTERNAL_SERVER_ERROR,
   } = err;
 

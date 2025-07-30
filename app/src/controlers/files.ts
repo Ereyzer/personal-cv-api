@@ -10,17 +10,33 @@ import {
 import { updateAvatar } from '../services/avatar.ts';
 import { addIcons, getAllIcons, getIconById } from '../services/icon.ts';
 import { fromBinaryToSvg, rmTmpFile } from '../utils/svgTobinaryConverter.ts';
-import { saveAvatarToCloudinary } from '../utils/saveFileToCloudinary.ts';
+import { saveImageToCloudinary } from '../utils/saveFileToCloudinary.ts';
 
 export const uploadAvatar: IController = async (req, res) => {
   const avatar: Express.Multer.File | undefined = req.file;
-
   // let name = avatar?.filename;
   if (!avatar) throw new BadRequest();
-  const imgLink = await saveAvatarToCloudinary(avatar);
+  const imgLink = await saveImageToCloudinary(avatar, 'fullAvatar');
   // const { name, webViewLink } = await uploadFileToDrive(avatar);
 
-  const data = await updateAvatar(imgLink);
+  const data = await updateAvatar(imgLink, 'full');
+  if (!data) throw new InternalServerError();
+
+  res.status(HttpCode.CREATED).json({
+    status: HttpCode.CREATED,
+    data: {
+      url: imgLink,
+    },
+  });
+  return;
+};
+
+export const cutAvatar: IController = async (req, res) => {
+  const avatar: Express.Multer.File | undefined = req.file;
+  if (!avatar) throw new BadRequest();
+  const imgLink = await saveImageToCloudinary(avatar, 'cutAvatar');
+
+  const data = await updateAvatar(imgLink, 'cut');
   if (!data) throw new InternalServerError();
 
   res.status(HttpCode.CREATED).json({
