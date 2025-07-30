@@ -27,6 +27,31 @@ export const saveAvatarToCloudinary = async (fileObj: Express.Multer.File): Prom
     throw new InternalServerError((e as Error).message);
   }
 };
+export const saveImageToCloudinary = async (
+  fileObj: Express.Multer.File,
+  public_id: string
+): Promise<string> => {
+  try {
+    const url = await cloudinary.uploader
+      .upload(fileObj.path, {
+        public_id,
+        invalidate: true,
+      })
+      .then(response => {
+        return response.secure_url;
+      })
+      .catch(e => {
+        console.log(e);
+      });
+    if (!url) {
+      throw new InternalServerError('problem with img db');
+    }
+
+    return url;
+  } catch (e) {
+    throw new InternalServerError((e as Error).message);
+  }
+};
 // (async function () {
 //   // Configuration
 //   cloudinary.config({

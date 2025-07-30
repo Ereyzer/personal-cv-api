@@ -33,8 +33,14 @@ const InfoSchema = new Schema(
       },
     },
     avatar: {
-      type: String,
-      default: null,
+      full: {
+        type: String,
+        default: null,
+      },
+      cut: {
+        type: String,
+        default: null,
+      },
     },
     contact_email: {
       type: String,

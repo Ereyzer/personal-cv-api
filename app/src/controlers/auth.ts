@@ -11,8 +11,6 @@ import { createCoupleOfTokens, refreshUserSession } from '../services/session.ts
 import { CookieOptions, Response } from 'express';
 
 export const createPasswordCtr: IController = async (req, res) => {
-  console.log('create password');
-
   const createPasswordTemplatePath = path.join(TEMPLATES_DIR, 'create-password-page.html');
   const templateSource = (await fs.readFile(createPasswordTemplatePath)).toString();
   const template = handlebars.compile(templateSource);
@@ -51,7 +49,7 @@ const setupCookieSession = (
   }: { _id: string; refreshToken: string; refreshTokenValidUntil: Date }
 ): void => {
   if (!res?.cookie) return;
-  console.log(_id);
+
   const cookieConfig: CookieOptions = {
     httpOnly: true,
     secure: NODE_ENV === 'production',
@@ -88,7 +86,6 @@ export const loginUserCtr: IController = async (req, res) => {
     refreshTokenValidUntil: Date;
   };
   setupCookieSession(res, { _id, refreshToken, refreshTokenValidUntil });
-  // console.log(res);
 
   res.status(HttpCode.OK).json({
     status: 200,
@@ -98,12 +95,7 @@ export const loginUserCtr: IController = async (req, res) => {
 };
 
 export const logoutUserCtr: IController = async (req, res) => {
-  console.log('test logout');
-  // console.log('coocie', req);
-
   const { sessionId } = req.cookies;
-  console.log(sessionId);
-
   if (sessionId) {
     await logoutUser(sessionId);
   }
@@ -115,11 +107,7 @@ export const logoutUserCtr: IController = async (req, res) => {
 };
 
 export const refreshUserSessionCtr: IController = async (req, res) => {
-  console.log('test');
-
   const { sessionId, refreshToken: oldToken } = req.cookies;
-  console.log(sessionId);
-  console.log(oldToken);
   const session = await refreshUserSession(sessionId, oldToken);
 
   if (!session) throw new UnauthorizedError('can not made new session');

@@ -61,6 +61,7 @@ export const refreshUserSession = async (
 ): Promise<mongoose.Document | null> => {
   const oldSession = await checkRefreshToken(sessionId, refreshToken);
   if (!oldSession) throw new UnauthorizedError('session expired');
+
   const { _id, userId } = oldSession.toJSON();
   await closeSession(_id);
   return await createCoupleOfTokens(userId);
