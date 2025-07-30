@@ -9,6 +9,8 @@ cloudinary.config({
   api_secret: CLOUDINARY_SECRET,
 });
 export const saveAvatarToCloudinary = async (fileObj: Express.Multer.File): Promise<string> => {
+  console.log('cloudinary');
+
   try {
     await cloudinary.uploader
       .upload(fileObj.path, {
@@ -22,8 +24,12 @@ export const saveAvatarToCloudinary = async (fileObj: Express.Multer.File): Prom
       // quality: 'auto',
       transformation: [{ fetch_format: 'auto', quality: 'auto' }, { width: 400 }],
     });
+    console.log('good');
+
     return optimizeUrl;
   } catch (e) {
+    console.log('bad');
+
     throw new InternalServerError((e as Error).message);
   }
 };
