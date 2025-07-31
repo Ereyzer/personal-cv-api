@@ -49,7 +49,7 @@ export const HOST: string = getEnvVar(varsEnv.APP_HOST, 'localhost');
 export const MONGO_URL = getEnvVar(varsEnv.MONGODB_URL);
 export const DIR_NAME: string = path.dirname(process.cwd());
 
-export const TMP_UPLOAD_DIR: string = path.join(DIR_NAME, 'tmp');
+export const TMP_UPLOAD_DIR: string = path.join('/tmp');
 export const UPLOAD_DIR: string = path.join(DIR_NAME, 'upload');
 
 export const CLOUDINARY_URL = getEnvVar(varsEnv.CLOUDINARY_URL);
