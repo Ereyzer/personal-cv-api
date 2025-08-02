@@ -23,6 +23,7 @@ export const startServer = () => {
   const app = express();
   app.use(express.json());
   //   // TODO: CORS !!!!!
+  app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
   app.use(cors(corsCallBAck));
   app.use(cookieParser());
@@ -49,7 +50,6 @@ export const startServer = () => {
   //   },
   //   express.static(path.join(DIR_NAME, 'static'))
   // );
-  app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
   // WRONG url
   app.use('*', req => {
     const url: string = `${req.protocol}//${req.get('host')}${req.originalUrl}`;
