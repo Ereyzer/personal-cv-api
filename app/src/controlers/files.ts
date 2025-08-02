@@ -13,8 +13,6 @@ import { fromBinaryToSvg, rmTmpFile } from '../utils/svgTobinaryConverter.ts';
 import { saveImageToCloudinary } from '../utils/saveFileToCloudinary.ts';
 
 export const uploadAvatar: IController = async (req, res) => {
-  console.log('upload func');
-
   const avatar: Express.Multer.File | undefined = req.file;
   // let name = avatar?.filename;
   if (!avatar) throw new BadRequest();
@@ -23,7 +21,6 @@ export const uploadAvatar: IController = async (req, res) => {
 
   const data = await updateAvatar(imgLink, 'full');
   if (!data) throw new InternalServerError();
-  console.log('good');
 
   res.status(HttpCode.CREATED).json({
     status: HttpCode.CREATED,

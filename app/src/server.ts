@@ -5,19 +5,13 @@ import cors from 'cors';
 
 import router from './routers/index.ts';
 
-import {
-  ADMIN_DOMAIN,
-  // DIR_NAME,
-  HOST,
-  // NODE_ENV,
-  PORT,
-  // UPLOAD_DIR
-} from './config/constants.ts';
+import { HOST, PORT } from './config/constants.ts';
 import { errorHandler } from './middlewares/errorHandler.ts';
 import { NotFoundError } from './config/err-const.ts';
 // import { ctrlWrapper } from './utils/ctrlWrapper.ts';
 // import { getAllIcons } from './services/icon';
 import swaggerFile from './swagger/swagger.ts';
+import { corsCallBAck } from './utils/corsCAllback.ts';
 
 // const swaggerDocument = JSON.parse(
 //   fs.readFileSync(path.join(DIR_NAME, 'swagger/swagger.json'), 'utf8')
@@ -30,12 +24,7 @@ export const startServer = () => {
   app.use(express.json());
   //   // TODO: CORS !!!!!
 
-  app.use(
-    cors({
-      origin: ADMIN_DOMAIN,
-      credentials: true,
-    })
-  );
+  app.use(cors(corsCallBAck));
   app.use(cookieParser());
   //   // TODO: some logs???
 
