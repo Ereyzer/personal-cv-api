@@ -1,7 +1,6 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import swaggerUi from 'swagger-ui-express';
-import cors from 'cors';
 
 import router from './routers/index.ts';
 
@@ -11,7 +10,6 @@ import { NotFoundError } from './config/err-const.ts';
 // import { ctrlWrapper } from './utils/ctrlWrapper.ts';
 // import { getAllIcons } from './services/icon';
 import swaggerFile from './swagger/swagger.ts';
-import { corsCallBAck } from './utils/corsCAllback.ts';
 
 // const swaggerDocument = JSON.parse(
 //   fs.readFileSync(path.join(DIR_NAME, 'swagger/swagger.json'), 'utf8')
@@ -23,9 +21,7 @@ export const startServer = () => {
   const app = express();
   app.use(express.json());
   //   // TODO: CORS !!!!!
-  app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
-  app.use(cors(corsCallBAck));
+  // app.use(cors(corsCallBAck));
   app.use(cookieParser());
   //   // TODO: some logs???
 
@@ -39,6 +35,7 @@ export const startServer = () => {
   });
 
   // app.use('/admin/page', ctrlWrapper(express.static('/static')));
+
   app.use(router);
   // SWAGGER
 
@@ -51,6 +48,7 @@ export const startServer = () => {
   //   express.static(path.join(DIR_NAME, 'static'))
   // );
   // WRONG url
+  app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
   app.use('*', req => {
     const url: string = `${req.protocol}//${req.get('host')}${req.originalUrl}`;
 
