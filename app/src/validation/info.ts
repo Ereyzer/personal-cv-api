@@ -29,7 +29,9 @@ export const simpleFieldsSchema = Joi.object({
   linkedin: Joi.string()
     .custom(isLinkedinLink, 'linkedin url validation')
     .messages({ 'any.custom': '{{#message}}' }),
-  github: Joi.string().custom(isGithubLink, 'gihub url').messages({ 'any.custom': '{{#message}}' }),
+  github: Joi.string()
+    .custom(isGithubLink, 'github url')
+    .messages({ 'any.custom': '{{#message}}' }),
   instagram: Joi.string()
     .custom(isInstagramLink, 'instagram url')
     .messages({ 'any.custom': '{{#message}}' }),
@@ -68,7 +70,7 @@ export const langFieldSchema = Joi.object({
   }),
 });
 
-const langFialds: string[] = langFieldSchema['$_terms'].keys.reduce(
+const langFields: string[] = langFieldSchema['$_terms'].keys.reduce(
   (prev: string[], { key }: { key?: string; schema?: object }): string[] => {
     if (!key) {
       return [...prev];
@@ -81,6 +83,6 @@ const langFialds: string[] = langFieldSchema['$_terms'].keys.reduce(
 
 export const updateLangFildeValidSchema = Joi.object({
   field: Joi.string()
-    .valid(...langFialds)
+    .valid(...langFields)
     .required(),
 });

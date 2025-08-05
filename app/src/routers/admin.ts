@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
 
 import {
+  clearSocialLink,
   getAllInfoController,
   patchInfoController,
   patchInfoEnController,
@@ -140,6 +141,13 @@ router.patch(
   validateParams(updateSimpleFildeValidSchema),
   validateBody(updateSimpleBodyValidSchema),
   ctrlWrapper(patchInfoController)
+);
+
+router.delete(
+  '/info/:field',
+  authenticate,
+  validateParams(updateSimpleFildeValidSchema),
+  ctrlWrapper(clearSocialLink)
 );
 
 router.get(
