@@ -29,7 +29,9 @@ export const simpleFieldsSchema = Joi.object({
   linkedin: Joi.string()
     .custom(isLinkedinLink, 'linkedin url validation')
     .messages({ 'any.custom': '{{#message}}' }),
-  github: Joi.string().custom(isGithubLink, 'gihub url').messages({ 'any.custom': '{{#message}}' }),
+  github: Joi.string()
+    .custom(isGithubLink, 'github url')
+    .messages({ 'any.custom': '{{#message}}' }),
   instagram: Joi.string()
     .custom(isInstagramLink, 'instagram url')
     .messages({ 'any.custom': '{{#message}}' }),
