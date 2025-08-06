@@ -46,6 +46,7 @@ import { validateQuery } from '../middlewares/validateQuery.ts';
 import { HardSkillsCreateBodySchema } from '../validation/hardSkills.ts';
 import {
   createHardSkillController,
+  deleHArdSkillController,
   getAllHardSkillsController,
   updateHardSkillController,
 } from '../controlers/hardSkills.ts';
@@ -187,5 +188,12 @@ router.get(
   '/hardSkills',
   validateQuery(PaginationQuerySchema),
   ctrlWrapper(getAllHardSkillsController)
+);
+
+router.delete(
+  '/hardSkills/:_id',
+  authenticate,
+  validateParams(IdValidationSchema),
+  ctrlWrapper(deleHArdSkillController)
 );
 export default router;

@@ -6,7 +6,7 @@ export const ctrlWrapper = (controller: IController): IController => {
       await controller(req, res, next);
     } catch (err) {
       if (err instanceof Error) {
-        console.log('error' + err);
+        console.log('error: ' + err);
       }
 
       next(err);
