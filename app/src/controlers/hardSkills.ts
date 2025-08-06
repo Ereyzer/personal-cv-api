@@ -1,6 +1,12 @@
 import { HttpCode } from '../config/constants.ts';
+import { InternalServerError } from '../config/err-const.ts';
 import { IController, IHardSkill } from '../interfaces/interface_controlers.ts';
-import { createtHardSkill, getHardSkills, updateHardSkill } from '../services/hardSkills.ts';
+import {
+  createtHardSkill,
+  deleteHardSkill,
+  getHardSkills,
+  updateHardSkill,
+} from '../services/hardSkills.ts';
 import { parsePaginationParams } from '../utils/parsePaginationParams.ts';
 
 export const createHardSkillController: IController = async (req, res) => {
@@ -37,4 +43,11 @@ export const getAllHardSkillsController: IController = async (req, res) => {
     message: `page: ${paginatQuery.page}, has ${paginatQuery.perPage} elements`,
     ...data,
   });
+};
+
+export const deleHArdSkillController: IController = async (req, res) => {
+  const { _id } = req.params as unknown as { _id: string };
+  const resp = await deleteHardSkill(_id);
+  if (!resp) throw new InternalServerError('hard skill not exist');
+  res.status(HttpCode.NO_CONTENT).send();
 };
