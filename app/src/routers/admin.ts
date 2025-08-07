@@ -35,6 +35,7 @@ import {
   createSoftSkillController,
   getAllSoftSkillsController,
   getSoftSkillController,
+  removeSoftSkillController,
 } from '../controlers/softSkills.ts';
 import {
   PaginationQuerySchema,
@@ -167,6 +168,13 @@ router.post(
   authenticate,
   validateBody(SoftSkillsUpsertBodySchema),
   ctrlWrapper(createSoftSkillController)
+);
+router.delete(
+  '/softSkills/:_id',
+  authenticate,
+  validateParams(IdValidationSchema),
+
+  ctrlWrapper(removeSoftSkillController)
 );
 
 router.post(
