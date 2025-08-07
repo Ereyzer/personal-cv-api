@@ -21,7 +21,7 @@ export interface IController {
 // export type IPayloadSimpleInfo = Partial<Record<EInfoSimpleFields, string>>;
 
 export interface IPayloadSimpleInfo {
-  [key: string]: string;
+  [key: string]: string | null;
   // avatar?: string;
   // contact_email?: string;
   // resume_file?: string;

@@ -1,8 +1,14 @@
 import mongoose from 'mongoose';
 import { HttpCode } from '../config/constants.ts';
 import { ELanguage, IController, ISoftSkill } from '../interfaces/interface_controlers.ts';
-import { upsertSoftSkill, getOneSoftSkill, getAllSoftSkills } from '../services/softSkills.ts';
+import {
+  upsertSoftSkill,
+  getOneSoftSkill,
+  getAllSoftSkills,
+  removeSoftSkillService,
+} from '../services/softSkills.ts';
 import { parsePaginationParams } from '../utils/parsePaginationParams.ts';
+import { InternalServerError } from '../config/err-const.ts';
 
 export const getAllSoftSkillsController: IController = async (req, res) => {
   const { language } = req.params as {
@@ -48,4 +54,9 @@ export const createSoftSkillController: IController = async (req, res) => {
   });
 };
 
-// export const updateSoftSkillController
+export const removeSoftSkillController: IController = async (req, res) => {
+  const { _id } = req.params as unknown as { _id: string };
+  const response = await removeSoftSkillService(_id);
+  if (!response) throw new InternalServerError('soft skill not exist');
+  res.status(HttpCode.NO_CONTENT).send();
+};

@@ -43,6 +43,14 @@ export const patchInfoController: IController = async (req, res, next) => {
   return;
 };
 
+export const clearSocialLink: IController = async (req, res, next) => {
+  const { field } = req.params;
+  const payload = { [`${field}`]: null };
+  const data = await updateSimpleFildInfo(payload, { fields: field });
+  if (!data) throw new InternalServerError(`can\`t delete this  ${field}`);
+  res.status(HttpCode.NO_CONTENT).send();
+};
+
 export const patchInfoEnController: IController = async (req, res, next) => {
   const {
     params: { field },

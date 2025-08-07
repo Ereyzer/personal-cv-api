@@ -37,3 +37,7 @@ export const getHardSkills = async ({
     data,
   };
 };
+
+export const deleteHardSkill = async (id: string): Promise<void | null> => {
+  return await HardSkillsCollection.findByIdAndDelete(id);
+};

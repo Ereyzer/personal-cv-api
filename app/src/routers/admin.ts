@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
 
 import {
+  clearSocialLink,
   getAllInfoController,
   patchInfoController,
   patchInfoEnController,
@@ -34,6 +35,7 @@ import {
   createSoftSkillController,
   getAllSoftSkillsController,
   getSoftSkillController,
+  removeSoftSkillController,
 } from '../controlers/softSkills.ts';
 import {
   PaginationQuerySchema,
@@ -45,6 +47,7 @@ import { validateQuery } from '../middlewares/validateQuery.ts';
 import { HardSkillsCreateBodySchema } from '../validation/hardSkills.ts';
 import {
   createHardSkillController,
+  deleHArdSkillController,
   getAllHardSkillsController,
   updateHardSkillController,
 } from '../controlers/hardSkills.ts';
@@ -142,6 +145,13 @@ router.patch(
   ctrlWrapper(patchInfoController)
 );
 
+router.delete(
+  '/info/:field',
+  authenticate,
+  validateParams(updateSimpleFildeValidSchema),
+  ctrlWrapper(clearSocialLink)
+);
+
 router.get(
   '/softSkills/:language',
   validateParams(SoftSkillsAllParamsSchema),
@@ -158,6 +168,13 @@ router.post(
   authenticate,
   validateBody(SoftSkillsUpsertBodySchema),
   ctrlWrapper(createSoftSkillController)
+);
+router.delete(
+  '/softSkills/:_id',
+  authenticate,
+  validateParams(IdValidationSchema),
+
+  ctrlWrapper(removeSoftSkillController)
 );
 
 router.post(
@@ -179,5 +196,12 @@ router.get(
   '/hardSkills',
   validateQuery(PaginationQuerySchema),
   ctrlWrapper(getAllHardSkillsController)
+);
+
+router.delete(
+  '/hardSkills/:_id',
+  authenticate,
+  validateParams(IdValidationSchema),
+  ctrlWrapper(deleHArdSkillController)
 );
 export default router;

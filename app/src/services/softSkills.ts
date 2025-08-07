@@ -125,3 +125,28 @@ export const upsertSoftSkill = async (
 // create one by id
 
 // update one by id
+// delete
+const deleteMultipleLanguages = async (id: string, lang: ELanguage): Promise<void | null> => {
+  switch (lang) {
+    case ELanguage.EN:
+      return EnSoftSkillsCollection.findByIdAndDelete(id);
+      break;
+    case ELanguage.UK:
+      return UkSoftSkillsCollection.findByIdAndDelete(id);
+      break;
+    default:
+      return;
+      break;
+  }
+};
+
+export const removeSoftSkillService = async (_id: string): Promise<void | null> => {
+  const promises = Object.values(ELanguage).map(l => deleteMultipleLanguages(_id, l));
+  try {
+    await Promise.all(promises);
+
+    return await SoftSkillsCollection.findByIdAndDelete(_id);
+  } catch {
+    return;
+  }
+};
