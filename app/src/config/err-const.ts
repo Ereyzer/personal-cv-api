@@ -43,3 +43,5 @@ export const UnprocessableEntityError = makeError(
 export const BadRequest = makeError('Bad Request', 'BAD REQUEST', HttpCode.BAD_REQUEST);
 
 export const UnauthorizedError = makeError('Unauthorized', 'UNAUTHORIZED', HttpCode.UNAUTHORIZED);
+
+export const ForbiddenError = makeError('Forbidden', 'FORBIDDEN', HttpCode.FORBIDDEN);

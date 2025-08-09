@@ -17,18 +17,23 @@ import {
 import { validateBody } from '../middlewares/validateBody.ts';
 import { upload } from '../middlewares/multer.ts';
 import {
+  addResumeController,
   cutAvatar,
+  deleteResumeController,
   getAllIconController,
+  getResumeController,
   // getOneIconController,
   uploadAvatar,
   // uploadSvgIcons,
 } from '../controlers/files.ts';
 import {
   validateAvatar,
+  validateResume,
   // validateIcon
 } from '../middlewares/validateFile.ts';
 import {
   avatarValidSchema,
+  resumeValidSchema,
   //  iconValidSchema
 } from '../validation/fileValidators.ts';
 import {
@@ -137,21 +142,6 @@ router.patch(
   ctrlWrapper(patchInfoUkController)
 );
 
-router.patch(
-  '/info/:field',
-  authenticate,
-  validateParams(updateSimpleFildeValidSchema),
-  validateBody(updateSimpleBodyValidSchema),
-  ctrlWrapper(patchInfoController)
-);
-
-router.delete(
-  '/info/:field',
-  authenticate,
-  validateParams(updateSimpleFildeValidSchema),
-  ctrlWrapper(clearSocialLink)
-);
-
 router.get(
   '/softSkills/:language',
   validateParams(SoftSkillsAllParamsSchema),
@@ -203,5 +193,31 @@ router.delete(
   authenticate,
   validateParams(IdValidationSchema),
   ctrlWrapper(deleHArdSkillController)
+);
+
+router.post(
+  '/info/resume',
+  authenticate,
+  upload.single('resume'),
+  validateResume(resumeValidSchema),
+  ctrlWrapper(addResumeController)
+);
+
+router.get('/info/resume', ctrlWrapper(getResumeController));
+
+router.delete('/info/resume', authenticate, ctrlWrapper(deleteResumeController));
+router.patch(
+  '/info/:field',
+  authenticate,
+  validateParams(updateSimpleFildeValidSchema),
+  validateBody(updateSimpleBodyValidSchema),
+  ctrlWrapper(patchInfoController)
+);
+
+router.delete(
+  '/info/:field',
+  authenticate,
+  validateParams(updateSimpleFildeValidSchema),
+  ctrlWrapper(clearSocialLink)
 );
 export default router;
