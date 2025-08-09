@@ -11,6 +11,8 @@ import { updateAvatar } from '../services/avatar.ts';
 import { addIcons, getAllIcons, getIconById } from '../services/icon.ts';
 import { fromBinaryToSvg, rmTmpFile } from '../utils/svgTobinaryConverter.ts';
 import { saveImageToCloudinary } from '../utils/saveFileToCloudinary.ts';
+import { fromBlobToFile, fromFileToBlob } from '../utils/resumeBlobParser.ts';
+import { deleteResumeService, getResumeService, updateResumeService } from '../services/resume.ts';
 
 export const uploadAvatar: IController = async (req, res) => {
   const avatar: Express.Multer.File | undefined = req.file;
@@ -83,4 +85,49 @@ export const uploadSvgIcons: IController = async (req, res) => {
     status: HttpCode.CREATED,
     data,
   });
+};
+
+export const addResumeController: IController = async (req, res) => {
+  const resume: Express.Multer.File | undefined = req.file;
+  console.log(resume);
+
+  if (!resume) throw new BadRequest('resume is undefined');
+  const blob = await fromFileToBlob(resume.path);
+  await updateResumeService(blob, resume.originalname);
+
+  res.status(HttpCode.CREATED).json({
+    message: 'resume was updated',
+    status: HttpCode.CREATED,
+  });
+};
+
+export const getResumeController: IController = async (req, res) => {
+  const { resume_file } = await getResumeService();
+  if (!resume_file) {
+    res
+      .status(HttpCode.NOT_FOUND)
+      .json({ status: HttpCode.NOT_FOUND, message: 'resume not found' });
+    return;
+  }
+  if (!resume_file.buffer) {
+    res
+      .status(HttpCode.NOT_FOUND)
+      .json({ status: HttpCode.NOT_FOUND, message: 'resume not found' });
+    return;
+  }
+
+  const filePath = await fromBlobToFile(resume_file.buffer, resume_file.name);
+  res.setHeader('Access-Control-Expose-Headers', 'Content-Disposition');
+  res.setHeader('Content-Disposition', `attachment; filename="${resume_file.name}"`);
+
+  res.status(HttpCode.OK).sendFile(filePath);
+};
+
+export const deleteResumeController: IController = async (req, res) => {
+  const response = await deleteResumeService();
+  if (!response) {
+    res.status(HttpCode.NO_CONTENT).send();
+    return;
+  }
+  res.status(HttpCode.CONFLICT).send();
 };

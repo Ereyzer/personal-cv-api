@@ -25,3 +25,16 @@ export const iconValidSchema = Joi.object({
   path: Joi.string().required(),
   size: Joi.number().required(),
 });
+
+export const resumeValidSchema = Joi.object({
+  fieldname: Joi.string().pattern(new RegExp('^resume$')).required(),
+  originalname: Joi.string()
+    .pattern(new RegExp(/\\*.pdf$/))
+    .required(),
+  encoding: Joi.string().required(),
+  mimetype: Joi.string().required(),
+  destination: Joi.string().required(),
+  filename: Joi.string().required(),
+  path: Joi.string().required(),
+  size: Joi.number().required(),
+});
