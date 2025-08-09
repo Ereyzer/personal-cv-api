@@ -53,9 +53,15 @@ export interface IInfo {
     en: string;
     uk: string;
   };
-  avatar?: string;
+  avatar?: {
+    full: string;
+    cut: string;
+  };
+  resume_file?: {
+    buffer: Buffer;
+    name: string;
+  };
   contact_email?: string;
-  resume_file?: string;
   likedin?: string;
   github?: string;
   instagram?: string;

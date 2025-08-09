@@ -35,3 +35,19 @@ export const validateIcon: IVadatorMiddlware = schema => async (req, res, next) 
     }
   }
 };
+
+export const validateResume: IVadatorMiddlware = schema => async (req, res, next) => {
+  const resume = req.file;
+
+  try {
+    await schema.validateAsync(resume, { abortEarly: false });
+
+    next();
+  } catch (error) {
+    if (error instanceof Joi.ValidationError) {
+      next(new UnprocessableEntityError(error.message));
+    } else {
+      next(new InternalServerError());
+    }
+  }
+};

@@ -107,7 +107,6 @@ export const patchInfoUkController: IController = async (req, res, next) => {
   });
   return;
 };
-
 // TODO: validator
 // TODO: IF
 // TODO: db

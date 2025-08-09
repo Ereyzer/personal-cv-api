@@ -47,8 +47,14 @@ const InfoSchema = new Schema(
       default: null,
     },
     resume_file: {
-      type: Buffer,
-      default: null,
+      buffer: {
+        type: Buffer,
+        default: null,
+      },
+      name: {
+        type: String,
+        default: 'resume',
+      },
     },
     linkedin: {
       type: String,
