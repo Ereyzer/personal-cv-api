@@ -11,7 +11,7 @@ export const LanguageSoftSkillDefinition = {
   title: {
     type: String,
     require: true,
-    maxLength: 20,
+    maxLength: 30,
   },
   text: {
     type: String,
