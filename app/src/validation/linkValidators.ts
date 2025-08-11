@@ -3,7 +3,7 @@ import Joi from 'joi';
 const linkedinPattern = /^https:\/\/www\.linkedin\.com\/in\/\S+\//;
 const githubPattern = /^https:\/\/github\.com\/\S+/;
 const instagramPattern = /^https:\/\/www\.instagram\.com\/\S+\//;
-const facebokPattern = /^https:\/\/www\.facebook\.com\/profile\.php\?\S+\//;
+const facebokPattern = /^https:\/\/www\.facebook\.com\/\S+\//;
 const phonePattern = /^\+?(?:[0-9]){6,14}[0-9]$/;
 
 class LinksValidators {
