@@ -22,7 +22,4 @@ const SoftSkillsSchema = new mongoose.Schema<Pick<ISoftSkill, '_id' | 'icon'>>(
   }
 );
 
-// export const SoftSkillsENCollection = mongoose.model('EnSoftSkill', softSkillsSchema);
-// export const SoftSkillsUkCollection = mongoose.model('UkSoftSkill', softSkillsSchema);
-
 export const SoftSkillsCollection = mongoose.model('soft_skills', SoftSkillsSchema);
