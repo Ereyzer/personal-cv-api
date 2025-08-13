@@ -52,7 +52,7 @@ export const sendContactMail = async ({
   text: string;
   superUserEmail: string;
 }): Promise<void> => {
-  const createTemplate = path.join(TEMPLATES_DIR, 'contact-email.hbs');
+  const createTemplate = path.join(TEMPLATES_DIR, 'contact-email.html');
   const templateSource = (await fs.readFile(createTemplate)).toString();
   const template = handlebars.compile(templateSource);
   const html = template({ name, email, text });
