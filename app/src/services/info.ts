@@ -2,8 +2,8 @@ import { QueryOptions } from 'mongoose';
 import { InfoCollection } from '../db/models/info.ts';
 import { IInfo, IPayloadLangInfo, IPayloadSimpleInfo } from '../interfaces/interface_controlers.ts';
 
-export const getInfo = async () => {
-  const info: IInfo | null = await InfoCollection.findById(1);
+export const getInfo = async (projection: object = {}) => {
+  const info: IInfo | null = await InfoCollection.findById(1, projection);
 
   return info;
 };

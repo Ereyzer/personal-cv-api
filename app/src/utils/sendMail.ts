@@ -31,7 +31,7 @@ export const sendAuthMAil = async (superUserEmail: string, name: string = 'Delul
   const emailOptionst = {
     from: AUTH_EMAIL,
     to: superUserEmail,
-    subject: 'Nodemailer test',
+    subject: 'Autintificate superuser email',
     html,
   };
 
@@ -39,4 +39,31 @@ export const sendAuthMAil = async (superUserEmail: string, name: string = 'Delul
     .sendMail(emailOptionst)
     .then(info => console.log(info))
     .catch(err => console.log(err));
+};
+
+export const sendContactMail = async ({
+  name,
+  email,
+  text,
+  superUserEmail,
+}: {
+  name: string;
+  email: string;
+  text: string;
+  superUserEmail: string;
+}): Promise<void> => {
+  const createTemplate = path.join(TEMPLATES_DIR, 'contact-email.hbs');
+  const templateSource = (await fs.readFile(createTemplate)).toString();
+  const template = handlebars.compile(templateSource);
+  const html = template({ name, email, text });
+
+  const transporter = nodemailer.createTransport(connfigNodeMailer);
+  const emailOptionst = {
+    from: AUTH_EMAIL,
+    to: superUserEmail,
+    sudject: `${name} try to conect with you`,
+    html,
+  };
+
+  await transporter.sendMail(emailOptionst).catch(err => console.log(err));
 };
