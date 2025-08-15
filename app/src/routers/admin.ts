@@ -49,11 +49,15 @@ import {
   SoftSkillsUpsertBodySchema,
 } from '../validation/softSkils.ts';
 import { validateQuery } from '../middlewares/validateQuery.ts';
-import { HardSkillsCreateBodySchema } from '../validation/hardSkills.ts';
+import {
+  HardSkillsCreateBodySchema,
+  hardSkillsIdListInQuerySchema,
+} from '../validation/hardSkills.ts';
 import {
   createHardSkillController,
   deleHArdSkillController,
   getAllHardSkillsController,
+  getHardSkillsListByIdController,
   updateHardSkillController,
 } from '../controlers/hardSkills.ts';
 import { IdValidationSchema } from '../validation/schemas.ts';
@@ -201,6 +205,11 @@ router.get(
   '/hardSkills',
   validateQuery(PaginationQuerySchema),
   ctrlWrapper(getAllHardSkillsController)
+);
+router.get(
+  '/hardSkills/ids',
+  validateQuery(hardSkillsIdListInQuerySchema),
+  ctrlWrapper(getHardSkillsListByIdController)
 );
 
 router.delete(
