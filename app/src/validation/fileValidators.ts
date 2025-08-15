@@ -1,10 +1,6 @@
 import Joi from 'joi';
 
-export const avatarValidSchema = Joi.object({
-  fieldname: Joi.string().pattern(new RegExp('^avatar$')).required(), // 'avatar'
-  originalname: Joi.string()
-    .pattern(new RegExp(/^[^\s+]+.(jpe?g|png|bmp|webp)$/))
-    .required(), // 'myPhoto.jpg',
+const fileValidSchema = Joi.object({
   encoding: Joi.string().required(), // '7bit',
   mimetype: Joi.string().required(), // 'image/jpeg',
   destination: Joi.string().required(), // '/app/tmp',
@@ -12,29 +8,29 @@ export const avatarValidSchema = Joi.object({
   path: Joi.string().required(), // '/app/tmp/1741423114273_myPhoto.jpg',
   size: Joi.number().required(), // 753624,
 });
+export const avatarValidSchema = fileValidSchema.keys({
+  fieldname: Joi.string().valid('avatar').required(), // 'avatar'
+  originalname: Joi.string()
+    .pattern(new RegExp(/^[^\s+]+.(jpe?g|png|bmp|webp)$/))
+    .required(), // 'myPhoto.jpg',
+});
 
-export const iconValidSchema = Joi.object({
-  fieldname: Joi.string().pattern(new RegExp('^icons$')).required(),
+export const iconValidSchema = fileValidSchema.keys({
+  fieldname: Joi.string().valid('icons').required(),
   originalname: Joi.string()
     .pattern(new RegExp(/^[^\s+]+.svg$/))
     .required(),
-  encoding: Joi.string().required(),
-  mimetype: Joi.string().required(),
-  destination: Joi.string().required(),
-  filename: Joi.string().required(),
-  path: Joi.string().required(),
-  size: Joi.number().required(),
 });
 
-export const resumeValidSchema = Joi.object({
-  fieldname: Joi.string().pattern(new RegExp('^resume$')).required(),
+export const resumeValidSchema = fileValidSchema.keys({
+  fieldname: Joi.string().valid('resume').required(),
   originalname: Joi.string()
     .pattern(new RegExp(/\\*.pdf$/))
     .required(),
-  encoding: Joi.string().required(),
-  mimetype: Joi.string().required(),
-  destination: Joi.string().required(),
-  filename: Joi.string().required(),
-  path: Joi.string().required(),
-  size: Joi.number().required(),
+});
+export const projectImageValidSchema = fileValidSchema.keys({
+  fieldname: Joi.string().valid('image').required(),
+  originalname: Joi.string()
+    .pattern(new RegExp(/^[^\s+]+.(jpe?g|png|bmp|webp)$/))
+    .required(),
 });

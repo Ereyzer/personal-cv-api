@@ -24,13 +24,8 @@ services:
     ports:
       - ${APP_PORT}:${APP_PORT}
     restart: unless-stopped
-    # volumes:
-    #   - /app/upload:/app/upload
-    # command: npm run dev
     develop:
       watch:
-        - path: .env
-          action: rebuild
         - path: package.json
           action: rebuild
         - path: ./app

@@ -27,12 +27,12 @@ import {
   // uploadSvgIcons,
 } from '../controlers/files.ts';
 import {
-  validateAvatar,
-  validateResume,
+  validateFile,
   // validateIcon
 } from '../middlewares/validateFile.ts';
 import {
   avatarValidSchema,
+  projectImageValidSchema,
   resumeValidSchema,
   //  iconValidSchema
 } from '../validation/fileValidators.ts';
@@ -59,6 +59,21 @@ import {
 import { IdValidationSchema } from '../validation/schemas.ts';
 import { cleearExpiredTokens } from '../services/session.ts';
 import { authenticate } from '../middlewares/auth.ts';
+import {
+  createProjectController,
+  deleteOneProjectController,
+  getAllProjectsController,
+  updateProjectController,
+  updateProjectLangugeController,
+} from '../controlers/projects.ts';
+import {
+  getProjectsQueryValidationSchema,
+  newProjectBodySchema,
+  updateProjectBodySchema,
+  updateProjectLanguageSchema,
+} from '../validation/projects.ts';
+import { ValidateFormData } from '../middlewares/validateFormData.ts';
+import { converTechnology } from '../middlewares/converteTechnology.ts';
 // import { crypter } from '../utils/crypter.ts';
 
 // import { readJWT } from '../utils/createJWT.ts';
@@ -100,14 +115,14 @@ router.post(
   '/files/avatar',
   authenticate,
   upload.single('avatar'),
-  validateAvatar(avatarValidSchema),
+  validateFile(avatarValidSchema),
   ctrlWrapper(uploadAvatar)
 );
 router.post(
   '/files/cutavatar',
   authenticate,
   upload.single('avatar'),
-  validateAvatar(avatarValidSchema),
+  validateFile(avatarValidSchema),
   ctrlWrapper(cutAvatar)
 );
 
@@ -199,7 +214,7 @@ router.post(
   '/info/resume',
   authenticate,
   upload.single('resume'),
-  validateResume(resumeValidSchema),
+  validateFile(resumeValidSchema),
   ctrlWrapper(addResumeController)
 );
 
@@ -219,5 +234,43 @@ router.delete(
   authenticate,
   validateParams(updateSimpleFildeValidSchema),
   ctrlWrapper(clearSocialLink)
+);
+
+router.get(
+  '/projects',
+  validateQuery(getProjectsQueryValidationSchema),
+  ctrlWrapper(getAllProjectsController)
+);
+router.post(
+  '/projects',
+  authenticate,
+  upload.single('image'),
+  validateFile(projectImageValidSchema),
+  converTechnology,
+  ValidateFormData(newProjectBodySchema),
+  ctrlWrapper(createProjectController)
+);
+router.patch(
+  '/projects/language/:_id',
+  validateParams(IdValidationSchema),
+  authenticate,
+  validateBody(updateProjectLanguageSchema),
+  ctrlWrapper(updateProjectLangugeController)
+);
+router.patch(
+  '/projects/:_id',
+  validateParams(IdValidationSchema),
+  authenticate,
+  upload.single('image'),
+  validateFile(projectImageValidSchema),
+  converTechnology,
+  ValidateFormData(updateProjectBodySchema),
+  ctrlWrapper(updateProjectController)
+);
+router.delete(
+  '/projects/:_id',
+  validateParams(IdValidationSchema),
+  authenticate,
+  ctrlWrapper(deleteOneProjectController)
 );
 export default router;
