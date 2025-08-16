@@ -17,7 +17,11 @@ export const getAllProjectsByLanguageService = async ({
   language = ELanguage.EN,
 }): Promise<object> => {
   const skip = (page - 1) * perPage;
-  const docs = await ProjectsCollection.find().skip(skip).limit(perPage).exec();
+  const docs = await ProjectsCollection.find()
+    .sort({ updatedAt: -1 })
+    .skip(skip)
+    .limit(perPage)
+    .exec();
 
   const IdArray = docs.map(doc => doc._id);
 
