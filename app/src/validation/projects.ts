@@ -14,7 +14,9 @@ export const updateProjectBodySchema = Joi.object({
 });
 
 export const updateProjectLanguageSchema = Joi.object({
-  language: Joi.string().valid(...Object.values(ELanguage)),
+  language: Joi.string()
+    .valid(...Object.values(ELanguage))
+    .required(),
   title: Joi.string(),
   description: Joi.string(),
 });
