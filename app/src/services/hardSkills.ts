@@ -41,3 +41,7 @@ export const getHardSkills = async ({
 export const deleteHardSkill = async (id: string): Promise<void | null> => {
   return await HardSkillsCollection.findByIdAndDelete(id);
 };
+
+export const getSomeHardSkillsByIds = async (id: string[]) => {
+  return await HardSkillsCollection.find({ _id: { $in: id } });
+};

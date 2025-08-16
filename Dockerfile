@@ -14,7 +14,7 @@ FROM node:${NODE_VERSION}-alpine
 # ENV NODE_ENV production
 
 WORKDIR /
-
+RUN apk add --no-cache python3 make g++
 # COPY ../scripts ./script
 # Download dependencies as a separate step to take advantage of Docker's caching.
 # Leverage a cache mount to /root/.npm to speed up subsequent builds.
@@ -26,8 +26,7 @@ WORKDIR /
 #     npm ci --omit=dev
 RUN --mount=type=bind,source=package.json,target=package.json \
     --mount=type=bind,source=package-lock.json,target=package-lock.json \
-    --mount=type=cache,target=/root/.npm \
-    npm ci --include=dev
+    --mount=type=cache,target=/root/.npm 
 # Run the application as a non-root user.
 # USER node
 
@@ -64,8 +63,7 @@ ENV MONGODB_DB=${MONGODB_DB}
 EXPOSE ${APP_PORT}
 
 # Run the application.
-# CMD npm run develop-mode-in-container
 
-CMD npm run dev
+CMD ["npm", "run", "dev"]
 
 

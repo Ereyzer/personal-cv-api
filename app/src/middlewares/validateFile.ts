@@ -2,11 +2,11 @@ import Joi from 'joi';
 import { Express } from 'express';
 import { InternalServerError, UnprocessableEntityError } from '../config/err-const.ts';
 import { IVadatorMiddlware } from '../interfaces/interfaces_middlwares.ts';
+export const validateFile: IVadatorMiddlware = schema => async (req, res, next) => {
+  const file = req.file;
 
-export const validateAvatar: IVadatorMiddlware = schema => async (req, res, next) => {
-  const avatar = req.file;
   try {
-    await schema.validateAsync(avatar, { abortEarly: false });
+    await schema.validateAsync(file, { abortEarly: false });
 
     next();
   } catch (error) {
@@ -26,22 +26,6 @@ export const validateIcon: IVadatorMiddlware = schema => async (req, res, next) 
       validations[i] = schema.validateAsync(icons[i]);
     }
     await Promise.all(validations);
-    next();
-  } catch (error) {
-    if (error instanceof Joi.ValidationError) {
-      next(new UnprocessableEntityError(error.message));
-    } else {
-      next(new InternalServerError());
-    }
-  }
-};
-
-export const validateResume: IVadatorMiddlware = schema => async (req, res, next) => {
-  const resume = req.file;
-
-  try {
-    await schema.validateAsync(resume, { abortEarly: false });
-
     next();
   } catch (error) {
     if (error instanceof Joi.ValidationError) {

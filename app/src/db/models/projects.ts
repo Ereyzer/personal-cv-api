@@ -8,6 +8,29 @@ const ProjectsSchema = new mongoose.Schema(
       auto: true,
     },
     image: {
+      url: {
+        type: mongoose.Schema.Types.String,
+        require: false,
+        default: null,
+      },
+      public_id: {
+        type: mongoose.Schema.Types.String,
+        require: false,
+        default: null,
+      },
+    },
+    technology: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'hard_skills',
+      },
+    ],
+    github: {
+      type: mongoose.Schema.Types.String,
+      require: false,
+      default: null,
+    },
+    link: {
       type: mongoose.Schema.Types.String,
       require: false,
       default: null,
@@ -23,8 +46,18 @@ const LanguageProjectsSchema = new mongoose.Schema(
       require: true,
       ref: 'projects',
     },
+    title: {
+      type: mongoose.Schema.Types.String,
+      require: false,
+      default: null,
+    },
+    description: {
+      type: mongoose.Schema.Types.String,
+      require: false,
+      default: null,
+    },
   },
-  { collection: 'projects', timestamps: true }
+  { timestamps: true }
 );
 
 export const ProjectsCollection = mongoose.model('projects', ProjectsSchema);

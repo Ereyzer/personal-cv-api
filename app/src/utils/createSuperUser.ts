@@ -7,8 +7,14 @@ export const createSuperUser = async (): Promise<void> => {
   try {
     await registerUser({ email, password: await crypter.encryptHash(password) });
     await sendAuthMAil(email);
+
     console.log('superuser created');
-  } catch {
-    console.log('superuser already exist');
+  } catch (error) {
+    if ((error as unknown as { code: number })?.code === 11000) {
+      console.log('superuser already exist');
+      return;
+    }
+    console.log(error);
+    return;
   }
 };
