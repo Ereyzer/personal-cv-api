@@ -58,11 +58,19 @@ export const startServer = () => {
   // ERRORS
   app.use(errorHandler);
 
-  app.listen(PORT, () => {
+  const server = app.listen(PORT, () => {
     // if (NODE_ENV === 'dev') {
+
     console.log(`Server is running on port: http://${HOST}:${PORT}`);
     // }
   });
-
+  // Обробка сигналу завершення від Nodemon
+  process.on('SIGINT', () => {
+    console.log('Отримано SIGINT. Завершення роботи...');
+    server.close(() => {
+      console.log('Сервер вимкнено. Вихід...');
+      process.exit(0);
+    });
+  });
   return app;
 };

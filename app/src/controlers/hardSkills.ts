@@ -1,10 +1,11 @@
 import { HttpCode } from '../config/constants.ts';
-import { InternalServerError } from '../config/err-const.ts';
+import { BadRequest, InternalServerError } from '../config/err-const.ts';
 import { IController, IHardSkill } from '../interfaces/interface_controlers.ts';
 import {
   createtHardSkill,
   deleteHardSkill,
   getHardSkills,
+  getSomeHardSkillsByIds,
   updateHardSkill,
 } from '../services/hardSkills.ts';
 import { parsePaginationParams } from '../utils/parsePaginationParams.ts';
@@ -50,4 +51,13 @@ export const deleHArdSkillController: IController = async (req, res) => {
   const resp = await deleteHardSkill(_id);
   if (!resp) throw new InternalServerError('hard skill not exist');
   res.status(HttpCode.NO_CONTENT).send();
+};
+
+export const getHardSkillsListByIdController: IController = async (req, res) => {
+  const { idArr } = req.query as unknown as { idArr: string };
+  const arr = JSON.parse(idArr);
+  if (!arr) throw new BadRequest('idArr must be array');
+  const data = await getSomeHardSkillsByIds(arr);
+
+  res.status(HttpCode.OK).json({ status: HttpCode.OK, data });
 };

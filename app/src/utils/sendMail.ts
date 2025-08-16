@@ -19,7 +19,7 @@ const connfigNodeMailer = {
 export const sendAuthMAil = async (superUserEmail: string, name: string = 'Delulu') => {
   const token = await createJWT(superUserEmail);
   // `${APP_DOMAIN}create-password/${token}`
-  const link = new URL(APP_DOMAIN + 'auth' + '/' + 'create-password' + '/' + token);
+  const link = new URL(APP_DOMAIN + '/' + 'auth' + '/' + 'create-password' + '/' + token);
 
   const createPasswordTemplatePath = path.join(TEMPLATES_DIR, 'create-password-email.html');
   const templateSource = (await fs.readFile(createPasswordTemplatePath)).toString();

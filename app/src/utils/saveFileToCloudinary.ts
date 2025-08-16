@@ -58,6 +58,18 @@ export const saveImageToCloudinary = async (
     throw new InternalServerError((e as Error).message);
   }
 };
+
+export const removeImageFromCloudinary = async (public_id: string) => {
+  try {
+    const response = await cloudinary.uploader.destroy(public_id, resp => {
+      console.log(resp);
+      return resp;
+    });
+    return response;
+  } catch {
+    throw new InternalServerError('problem with img db');
+  }
+};
 // (async function () {
 //   // Configuration
 //   cloudinary.config({
