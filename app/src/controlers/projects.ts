@@ -31,7 +31,6 @@ export const createProjectController: IController = async (req, res) => {
   const { ...body } = req.body;
   const file = req.file;
   let data;
-  console.log('Text data:', body);
 
   if (!file) {
     data = await createProjectService(body);
@@ -63,13 +62,7 @@ export const updateProjectController: IController = async (req, res) => {
   }
   const data = await updateProjectService(payload, _id);
 
-  // if (!title && !description) {
   res.status(HttpCode.CREATED).json({ status: HttpCode.CREATED, data });
-  //   return;
-  // }
-  // const languagePayload: IprojectPayload = {};
-  // if (title) languagePayload.title = title;
-  // if (description) languagePayload.description = description;
 };
 
 export const updateProjectLangugeController: IController = async (req, res) => {

@@ -3,7 +3,7 @@ import { ELanguage } from '../interfaces/interface_controlers.ts';
 
 export const newProjectBodySchema = Joi.object({
   link: Joi.string().required(),
-  github: Joi.string().required(),
+  github: Joi.string(),
   technology: Joi.array<string>().required(),
 });
 

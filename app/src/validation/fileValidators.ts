@@ -11,7 +11,7 @@ const fileValidSchema = Joi.object({
 export const avatarValidSchema = fileValidSchema.keys({
   fieldname: Joi.string().valid('avatar').required(), // 'avatar'
   originalname: Joi.string()
-    .pattern(new RegExp(/^[^\s+]+.(jpe?g|png|bmp|webp)$/))
+    .pattern(new RegExp(/^.+\.(jpe?g|png|bmp|webp)$/))
     .required(), // 'myPhoto.jpg',
 });
 
@@ -31,6 +31,6 @@ export const resumeValidSchema = fileValidSchema.keys({
 export const projectImageValidSchema = fileValidSchema.keys({
   fieldname: Joi.string().valid('image').required(),
   originalname: Joi.string()
-    .pattern(new RegExp(/^[^\s+]+.(jpe?g|png|bmp|webp)$/))
+    .pattern(new RegExp(/^.+\.(jpe?g|png|bmp|webp)$/))
     .required(),
 });
