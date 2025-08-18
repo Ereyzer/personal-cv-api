@@ -14,7 +14,7 @@ const StatisticsSchema = new Schema(
       require: true,
       default: 0,
     },
-    dowloadresume: {
+    downloadresume: {
       type: mongoose.Schema.Types.Int32,
       require: true,
       default: 0,

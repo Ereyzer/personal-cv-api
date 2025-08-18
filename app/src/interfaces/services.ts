@@ -20,7 +20,7 @@ export interface IprojectReturn extends Omit<IprojectPayload, '_id' | 'technolog
 
 export enum statisticsFieldsEnum {
   opened = 'opened',
-  dowloadresume = 'dowloadresume',
+  downloadresume = 'downloadresume',
   sendemail = 'sendemail',
   openlinkedin = 'openlinkedin',
   openfacebook = 'openfacebook',
