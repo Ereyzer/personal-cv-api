@@ -78,6 +78,11 @@ import {
 } from '../validation/projects.ts';
 import { ValidateFormData } from '../middlewares/validateFormData.ts';
 import { converTechnology } from '../middlewares/converteTechnology.ts';
+import {
+  getStatisticsController,
+  updateStatisticsByActController,
+} from '../controlers/statistics.ts';
+import { statiscticsQueryValidSchema } from '../validation/statistics.ts';
 // import { crypter } from '../utils/crypter.ts';
 
 // import { readJWT } from '../utils/createJWT.ts';
@@ -281,5 +286,13 @@ router.delete(
   validateParams(IdValidationSchema),
   authenticate,
   ctrlWrapper(deleteOneProjectController)
+);
+
+router.get('/statistics', authenticate, ctrlWrapper(getStatisticsController));
+
+router.put(
+  '/statistics',
+  validateQuery(statiscticsQueryValidSchema),
+  ctrlWrapper(updateStatisticsByActController)
 );
 export default router;

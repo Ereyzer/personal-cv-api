@@ -17,3 +17,14 @@ export interface IprojectReturn extends Omit<IprojectPayload, '_id' | 'technolog
   _id: mongoose.Types.ObjectId;
   technology: mongoose.Types.ObjectId[];
 }
+
+export enum statisticsFieldsEnum {
+  opened = 'opened',
+  dowloadresume = 'dowloadresume',
+  sendemail = 'sendemail',
+  openlinkedin = 'openlinkedin',
+  openfacebook = 'openfacebook',
+  openinstagram = 'openinstagram',
+  opentelegram = 'opentelegram',
+  opengithub = 'opengithub',
+}
