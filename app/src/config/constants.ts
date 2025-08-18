@@ -75,7 +75,10 @@ export const JWT_SECRET = getEnvVar(varsEnv.JWT_SECRET);
 export const APP_DOMAIN = getEnvVar(varsEnv.APP_DOMAIN, 'http://localhost:3000');
 export const ADMIN_DOMAIN = getEnvVar(varsEnv.ADMIN_DOMAIN, 'http://localhost:5173');
 export const RESUME_DOMAIN = getEnvVar(varsEnv.RESUME_DOMAIN, 'http://localhost:1234');
-export const PREWIEV_DOMAIN = getEnvVar(varsEnv.PREWIEV_DOMAIN);
+export const PREWIEV_DOMAIN = getEnvVar(
+  varsEnv.PREWIEV_DOMAIN,
+  'https://ereyzer.github.io/personal-cv'
+);
 export const SALT_ROUNDS_HASH = getEnvVar(varsEnv.SALT_ROUNDS_HASH, '2');
 
 export const FIFTEEN_MINUTES = 15 * 60 * 1000;
