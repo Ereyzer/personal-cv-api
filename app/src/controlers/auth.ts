@@ -6,9 +6,11 @@ import { ADMIN_DOMAIN, HttpCode, NODE_ENV, TEMPLATES_DIR } from '../config/const
 import { readJWT } from '../utils/createJWT.ts';
 import { getUser, logoutUser, registerUser, updatePassword } from '../services/auth.ts';
 import { crypter } from '../utils/crypter.ts';
-import { UnauthorizedError } from '../config/err-const.ts';
+import { InternalServerError, UnauthorizedError } from '../config/err-const.ts';
 import { createCoupleOfTokens, refreshUserSession } from '../services/session.ts';
 import { CookieOptions, Response } from 'express';
+import { SUPERUSER_EMAIL as email, SUPERUSER_PASSWORD as password } from '../config/constants.ts';
+import { sendAuthMAil } from '../utils/sendMail.ts';
 
 export const createPasswordCtr: IController = async (req, res) => {
   const createPasswordTemplatePath = path.join(TEMPLATES_DIR, 'create-password-page.html');
@@ -138,4 +140,14 @@ export const registerUserCtr: IController = async (req, res) => {
 
 export const checkIsUserOnline: IController = async (req, res) => {
   res.status(HttpCode.OK).send();
+};
+
+export const newPasswordCtr: IController = async (req, res) => {
+  try {
+    await registerUser({ email, password: await crypter.encryptHash(password) });
+    await sendAuthMAil(email);
+    res.status(HttpCode.OK).send();
+  } catch {
+    throw new InternalServerError();
+  }
 };

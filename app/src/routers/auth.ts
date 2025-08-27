@@ -5,6 +5,7 @@ import {
   createPasswordCtr,
   loginUserCtr,
   logoutUserCtr,
+  newPasswordCtr,
   refreshUserSessionCtr,
   // registerUserCtr,
   updatePasswordCtr,
@@ -42,6 +43,7 @@ router.post('/logout', authenticate, ctrlWrapper(logoutUserCtr));
 
 router.post('/refresh', ctrlWrapper(refreshUserSessionCtr));
 
+router.get('/new-password', authenticate, ctrlWrapper(newPasswordCtr));
 // router.post('/test/register', validateBody(registerUserSchema), ctrlWrapper(registerUserCtr));
 
 export default router;
