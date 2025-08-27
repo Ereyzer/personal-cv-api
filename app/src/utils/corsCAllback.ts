@@ -1,8 +1,8 @@
 import { CorsOptions } from 'cors';
-import { ADMIN_DOMAIN, PREWIEV_DOMAIN, RESUME_DOMAIN } from '../config/constants.ts';
+import { ADMIN_DOMAIN, APP_DOMAIN, PREWIEV_DOMAIN, RESUME_DOMAIN } from '../config/constants.ts';
 import { ForbiddenError } from '../config/err-const.ts';
 
-const allowedOrigins = { ADMIN_DOMAIN, RESUME_DOMAIN, PREWIEV_DOMAIN };
+const allowedOrigins = { ADMIN_DOMAIN, RESUME_DOMAIN, PREWIEV_DOMAIN, APP_DOMAIN };
 
 export const corsCallBAck: CorsOptions = {
   origin: (origin, cb) => {
