@@ -9,7 +9,7 @@ import { crypter } from '../utils/crypter.ts';
 import { InternalServerError, UnauthorizedError } from '../config/err-const.ts';
 import { createCoupleOfTokens, refreshUserSession } from '../services/session.ts';
 import { CookieOptions, Response } from 'express';
-import { SUPERUSER_EMAIL as email, SUPERUSER_PASSWORD as password } from '../config/constants.ts';
+import { SUPERUSER_EMAIL as email } from '../config/constants.ts';
 import { sendAuthMAil } from '../utils/sendMail.ts';
 
 export const createPasswordCtr: IController = async (req, res) => {
@@ -144,7 +144,6 @@ export const checkIsUserOnline: IController = async (req, res) => {
 
 export const newPasswordCtr: IController = async (req, res) => {
   try {
-    await registerUser({ email, password: await crypter.encryptHash(password) });
     await sendAuthMAil(email);
     res.status(HttpCode.OK).send();
   } catch {
