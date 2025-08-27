@@ -1,7 +1,7 @@
 (() => {
-  const TOKEN = window.location.href.split('/').reverse()[0];
-  console.log(TOKEN);
-  console.log(window.location);
+  //   const TOKEN = window.location.href.split('/').reverse()[0];
+  //   console.log(TOKEN);
+  //   console.log(window.location);
 
   const formSelector = document.querySelector('#form-new-password');
   formSelector.addEventListener('submit', event => {
