@@ -24,18 +24,18 @@ RUN apk add --no-cache python3 make g++
 #     --mount=type=bind,source=package-lock.json,target=package-lock.json \
 #     --mount=type=cache,target=/root/.npm \
 #     npm ci --omit=dev
-RUN --mount=type=bind,source=package.json,target=package.json \
-    --mount=type=bind,source=package-lock.json,target=package-lock.json \
-    --mount=type=cache,target=/root/.npm 
+# RUN --mount=type=bind,source=package.json,target=package.json \
+#     --mount=type=bind,source=package-lock.json,target=package-lock.json \
+#     --mount=type=cache,target=/root/.npm 
 # Run the application as a non-root user.
 # USER node
 
 # Copy the rest of the source files into the image.
-COPY package.json tsconfig.json tsconfig.dev.json  nodemon.json ./
+COPY package.json tsconfig.json tsconfig.dev.json package-lock.json nodemon.json ./
 
 RUN npm install nodemon -g
 RUN npm install tsc -g
-RUN npm i
+RUN npm ci
 COPY ./app ./app
 COPY ./static ./static
 
