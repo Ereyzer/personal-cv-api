@@ -27,26 +27,12 @@ export const startServer = () => {
 
   app.get('/hello', async (_req, res) => {
     const message = 'Hello World';
-    // const data = await getAllIcons();
-    // res.status(200).contentType('aplication/json').send({ message });
     console.log(message);
 
     res.send(message);
   });
 
-  // app.use('/admin/page', ctrlWrapper(express.static('/static')));
-
   app.use(router);
-  // SWAGGER
-
-  // app.use(
-  //   (req, res, next) => {
-  //     console.log(DIR_NAME);
-
-  //     next();
-  //   },
-  //   express.static(path.join(DIR_NAME, 'static'))
-  // );
   // WRONG url
   app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
   app.use('*', req => {

@@ -89,7 +89,6 @@ export const uploadSvgIcons: IController = async (req, res) => {
 
 export const addResumeController: IController = async (req, res) => {
   const resume: Express.Multer.File | undefined = req.file;
-  console.log(resume);
 
   if (!resume) throw new BadRequest('resume is undefined');
   const blob = await fromFileToBlob(resume.path);

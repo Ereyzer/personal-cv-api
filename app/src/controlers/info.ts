@@ -96,7 +96,6 @@ export const patchInfoUkController: IController = async (req, res, next) => {
   if (isWrongField) throw new UnprocessableEntityError(isWrongField.message);
 
   const data: IPayloadLangInfo | null = await updateLangFieldInfo(payload, { fields: field });
-  // console.log(data);
 
   if (!data) throw new InternalServerError('can`t update info');
 
