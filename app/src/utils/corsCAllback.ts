@@ -8,6 +8,10 @@ export const corsCallBAck: CorsOptions = {
   origin: (origin, cb) => {
     // if (!origin) throw new ForbiddenError('CORS policy');
     console.log('test: ', origin);
+    console.log('domain: ', APP_DOMAIN);
+    console.log(!origin);
+
+    console.log(!origin || Object.values(allowedOrigins).indexOf(origin) !== -1);
 
     if (!origin || Object.values(allowedOrigins).indexOf(origin) !== -1) {
       console.log('good');
