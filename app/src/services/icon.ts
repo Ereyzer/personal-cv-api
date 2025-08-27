@@ -15,45 +15,6 @@ export const getAllIcons = async (): Promise<ISvgDbDataCollection[]> => {
 export const getIconById = async (id: string): Promise<ISvgDbDataCollection | null> =>
   await IconCOllection.findById(id);
 
-// export const addIcons = async (
-//   icons: Express.Multer.File[]
-// ): Promise<mongoose.Document[] | never> => {
-//   const binaryIconsPromises: Promise<{ buffer: Buffer; name: string }>[] = [];
-//   for (let i = 0; i < icons.length; i++) {
-//     binaryIconsPromises[i] = new Promise(resolve => {
-//       resolve(
-//         (async () => {
-//           return {
-//             buffer: await fromSvgToBinary(icons[i].path),
-//             name: icons[i].filename,
-//           };
-//         })()
-//       );
-//     });
-//   }
-
-//   try {
-//     const binaryIcons: ISvgDbData[] | never = await Promise.all(binaryIconsPromises);
-//     console.log(binaryIcons);
-
-//     for (const el of binaryIcons) {
-//       const doc = new IconCOllection({
-//         ...el,
-//       });
-//       console.log(doc);
-
-//       await doc.save();
-//     }
-//   } catch (e) {
-//     console.log(e);
-
-//     throw new InternalServerError('We cant add icons');
-//   }
-
-//   throw new Error();
-//   // return;
-// };
-
 export const addIcons = async <T extends { _id: mongoose.Schema.Types.ObjectId; name: string }>(
   icons: Express.Multer.File[]
 ): Promise<T[] | never> => {

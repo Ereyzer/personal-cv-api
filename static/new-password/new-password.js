@@ -1,8 +1,4 @@
 (() => {
-  //   const TOKEN = window.location.href.split('/').reverse()[0];
-  //   console.log(TOKEN);
-  //   console.log(window.location);
-
   const formSelector = document.querySelector('#form-new-password');
   formSelector.addEventListener('submit', event => {
     event.preventDefault();
@@ -49,12 +45,9 @@
     })
       .then(response => {
         const text = response.text();
-        console.log(response);
-        console.log(text);
         return text;
       })
       .then(res => {
-        console.log(res);
         document.body.innerHTML = res;
       });
   };

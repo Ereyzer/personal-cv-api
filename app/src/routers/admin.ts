@@ -22,19 +22,13 @@ import {
   deleteResumeController,
   getAllIconController,
   getResumeController,
-  // getOneIconController,
   uploadAvatar,
-  // uploadSvgIcons,
 } from '../controlers/files.ts';
-import {
-  validateFile,
-  // validateIcon
-} from '../middlewares/validateFile.ts';
+import { validateFile } from '../middlewares/validateFile.ts';
 import {
   avatarValidSchema,
   projectImageValidSchema,
   resumeValidSchema,
-  //  iconValidSchema
 } from '../validation/fileValidators.ts';
 import {
   createSoftSkillController,
@@ -83,38 +77,10 @@ import {
   updateStatisticsByActController,
 } from '../controlers/statistics.ts';
 import { statiscticsQueryValidSchema } from '../validation/statistics.ts';
-// import { crypter } from '../utils/crypter.ts';
-
-// import { readJWT } from '../utils/createJWT.ts';
 
 const router = Router();
 
-// TODO: admin page
-// router.get('', async (_req: Request, res: Response) => {
-//     res.status(HttpCode.OK).sendFile(path.join(DIR_NAME, 'src/static/html/index.html'));
-// });
-// router.get('', async (_req: Request, res: Response) => {
-//     res.status(HttpCode.OK).json({
-//         message: 'hello'
-//     });
-// });
-
 router.get('/test', authenticate, async (req: Request, res: Response) => {
-  console.log('Hello Admin');
-  // await sendAuthMAil('ivanlaver142@gmail.com');
-  // readJWT('ddd');
-  // readJWT(
-  //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2ODNiZjcwNTJlYmQ3ODc3ZWRlOTg3NmYiLCJlbWFpbCI6Iml2YW5sYXZlcjE0MkBnbWFpbC5jb20iLCJkYXRlIjoxNzQ5NjI5NTI5NDI2LCJpYXQiOjE3NDk2Mjk1Mjl9.eAl8A40PGxvgwFwRtYdv37DJQbQD2AcNQI_S0fkeFWY'
-  // );
-  // const encripted = await crypter.encryptHash('12345678');
-  // console.log('encripted: ', encripted);
-  // const encripte = await crypter.encryptHash('12345678');
-  // console.log('encripted: ', encripte);
-  // const isEqualTrue = await crypter.compareHash(encripted, '12345678');
-  // const isEqualFalse = await crypter.compareHash(encripted, '12345679');
-  // console.log('isEqualTrue: ', isEqualTrue);
-  // console.log('isEqualFalse: ', isEqualFalse);
-
   await cleearExpiredTokens();
   res.send('Hello admin');
 });
@@ -137,18 +103,7 @@ router.post(
 
 router.get('/info', ctrlWrapper(getAllInfoController));
 
-// router.get svg
-
 router.get('/info/icons', ctrlWrapper(getAllIconController));
-// TODO: GET ICON BY ID
-// router.get('/files/icon/:id', ctrlWrapper(getOneIconController));
-// TODO: ADD ICON
-// router.post(
-//   '/files/icons',
-//   upload.array('icons', 10),
-//   validateIcon(iconValidSchema),
-//   ctrlWrapper(uploadSvgIcons)
-// );
 
 router.patch(
   '/info/en/:field',
