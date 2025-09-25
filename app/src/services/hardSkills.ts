@@ -29,7 +29,7 @@ export const getHardSkills = async ({
 
   const [totalItems, data] = await Promise.all([
     HardSkillsCollection.find().countDocuments(),
-    HardSkillsCollection.find().skip(skip).limit(perPage).exec(),
+    HardSkillsCollection.find().sort({ createdAt: -1 }).skip(skip).limit(perPage).exec(),
   ]);
 
   return {
